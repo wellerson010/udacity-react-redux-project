@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import { getAll } from './core/category/category-service';
 class App extends Component {
-  render() {
+    async componentDidMount(){
+      const categories = await getAll();
+      
+          console.log(categories);
+    }
+
+    render() {
+  /*  
+*/
     return (
       <div className="App">
         <header className="App-header">
