@@ -10,8 +10,7 @@ export default async function request({ url, method = 'GET' }){
             'Authorization': 'udacity-react-2017'
         }
     });
-    return response;
- //   return response.json();
+    return response.json();
 }
 
 function normalizeUrl(url){

@@ -1,26 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { getAll } from './core/category/category-service';
-class App extends Component {
-    async componentDidMount(){
-      const categories = await getAll();
-      
-          console.log(categories);
-    }
+import { Route } from 'react-router-dom';
 
+import HomePage from './views/pages/home-page';
+
+class App extends Component {
     render() {
-  /*  
-*/
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <Route exact path="/" component={HomePage} />
       </div>
     );
   }

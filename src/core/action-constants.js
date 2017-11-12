@@ -1,0 +1,1 @@
+export const ADD_ALL_CATEGORIES = 'ADD_ALL_CATEGORIES';
