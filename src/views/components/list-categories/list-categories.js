@@ -1,43 +1,42 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'; 
 import BlockUi from 'react-block-ui';
 import 'react-block-ui/style.css';
 
 import './list-categories.css';
-import { getAll } from '../../../core/category/category-service';
-import { addAllCategories } from '../../../core/category/category-actions';
+import { getAllCategories } from '../../../core/category/category-actions';
 
 class ListCategories extends React.Component {
-    state = {
-        loading: true
-    }
-
     async componentDidMount(){
-        let categories = await getAll();
-        
-        this.props.addAllCategories(categories);
-
-        this.setState({
-            loading: false
-        }); 
+        this.props.getAllCategories();
     }
 
     render(){
         const { categories } = this.props;
 
         return (
-            <BlockUi blocking={this.state.loading} className="container-categories">
-                <h2>Categories</h2>
-                <ul>
+            <BlockUi blocking={this.props.loading} className='container-categories'>
+                <h2 className='container-categories-title'>Categories</h2>
+                <ul className='container-categories-list'>
+                    <li key='all'>
+                        <NavLink 
+                            to='/category/all'
+                            activeClassName="selected">
+                            All 
+                        </NavLink>
+                    </li>
                     { 
-                        categories.result.categories.map(data => {
-                            const category = categories.entities.categories[data];
+                        categories.all.ids.map(id => {
+                            const category = categories.all.data[id];
 
                             return (
-                                <li key={category.name}>
-                                    { 
-                                        category.name
-                                    }
+                                <li key={id}>
+                                    <NavLink to={'/category/' + category.path} activeClassName="selected">
+                                        { 
+                                            category.name
+                                        }
+                                    </NavLink>
                                 </li>
                             );
                         })
@@ -50,13 +49,14 @@ class ListCategories extends React.Component {
 
 const mapStateToProps = ({category}) => {
     return {
-        categories: category
+        categories: category,
+        loading: category.loading.getAll
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addAllCategories: data => dispatch(addAllCategories(data))
+        getAllCategories: data => dispatch(getAllCategories())
     }
 }
 

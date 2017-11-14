@@ -1,16 +1,30 @@
-import { ADD_ALL_CATEGORIES } from '../action-constants';
+import { ADD_ALL_CATEGORIES, CHANGE_LOADING_CATEGORY_GET_ALL } from '../action-constants';
 
 const defaultState = {
-    entities: {},
-    result: {
-        categories: []
+    all: {
+        ids: [],
+        data: {}
+    },
+    loading: {
+        getAll: false
     }
 }
 
 export default function category(state = defaultState, action){
     switch(action.type){
         case ADD_ALL_CATEGORIES:
-            return action.categories;
+            return {
+                ...state,
+                ['all']: action.categories
+            };
+        case CHANGE_LOADING_CATEGORY_GET_ALL:
+            return {
+                ...state,
+                ['loading']: {
+                    ...state.loading,
+                    ['getAll']: action.loading
+                }
+            }
         default:
             return state;
     }

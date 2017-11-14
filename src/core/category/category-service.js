@@ -1,16 +1,13 @@
-import { normalize } from 'normalizr';
+import { normalizeData } from '../utils';
+import request from '../api';
 
-import Request from '../api';
-import { categorySchema } from './category-schema';
 
-export async function getAll(){
-  const data = await Request({
+export async function getAll() {
+  const data = await request({
     url: 'categories'
   });
 
-  const categories = normalize(data, {
-    categories: [categorySchema]
-  });
+  const categories = normalizeData(data.categories, { attributeId: 'name' })
 
   return categories;
 }

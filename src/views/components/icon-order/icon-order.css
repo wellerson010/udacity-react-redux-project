@@ -1,0 +1,15 @@
+.icon-order {
+    position: relative;
+}
+
+.icon-order .order{
+    position: absolute;
+    font-size: 10px;
+    bottom: -6px;
+    right: 2px;
+    color: #ff1111;
+}
+
+.icon-order .order:hover{
+    color: #ff1111 !important;
+}

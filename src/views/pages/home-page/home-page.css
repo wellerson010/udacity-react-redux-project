@@ -1,0 +1,12 @@
+.container-home {
+    display: flex;
+}
+
+.container-home-categories{
+    width: 200px;
+    margin-right: 5px;
+}
+
+.container-home-posts{
+    flex-grow: 1;
+}

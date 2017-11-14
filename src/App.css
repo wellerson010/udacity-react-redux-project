@@ -1,0 +1,6 @@
+.container {
+    width: 100%;
+    overflow: auto;
+    margin: 0 auto;
+    max-width: 940px;
+}
