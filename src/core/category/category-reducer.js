@@ -1,12 +1,16 @@
-import { ADD_ALL_CATEGORIES, CHANGE_LOADING_CATEGORY_GET_ALL } from '../action-constants';
+import { 
+    ADD_ALL_CATEGORIES,
+    API_IDLE,
+    CHANGE_STATUS_CATEGORY_GET_ALL
+} from '../constants';
 
 const defaultState = {
     all: {
         ids: [],
         data: {}
     },
-    loading: {
-        getAll: false
+    status: {
+        getAll: API_IDLE
     }
 }
 
@@ -15,14 +19,14 @@ export default function category(state = defaultState, action){
         case ADD_ALL_CATEGORIES:
             return {
                 ...state,
-                ['all']: action.categories
+                all: action.categories
             };
-        case CHANGE_LOADING_CATEGORY_GET_ALL:
+        case CHANGE_STATUS_CATEGORY_GET_ALL:
             return {
                 ...state,
-                ['loading']: {
-                    ...state.loading,
-                    ['getAll']: action.loading
+                status: {
+                    ...state.status,
+                    getAll: action.status
                 }
             }
         default:

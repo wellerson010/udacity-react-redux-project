@@ -1,4 +1,10 @@
-import { ADD_ALL_CATEGORIES, CHANGE_LOADING_CATEGORY_GET_ALL } from '../action-constants';
+import { 
+    ADD_ALL_CATEGORIES,
+    API_FAIL,
+    API_LOADING,
+    API_SUCCESS,
+    CHANGE_STATUS_CATEGORY_GET_ALL
+} from '../constants';
 import { getAll } from './category-service';
 
 export function addAllCategories(categories){
@@ -8,20 +14,21 @@ export function addAllCategories(categories){
     }
 }
 
-export function changeLoadingCategoryGetAll(loading){
+export function changeStatusCategoryGetAll(status){
     return {
-        type: CHANGE_LOADING_CATEGORY_GET_ALL,
-        loading
+        type: CHANGE_STATUS_CATEGORY_GET_ALL,
+        status
     }
 }
 
 export function getAllCategories(){
-    
     return dispatch => {
-        dispatch(changeLoadingCategoryGetAll(true));
+        dispatch(changeStatusCategoryGetAll(API_LOADING));
         getAll().then(data => {
             dispatch(addAllCategories(data));
-            dispatch(changeLoadingCategoryGetAll(false));
+            dispatch(changeStatusCategoryGetAll(API_SUCCESS));
+        }).catch(data => {
+            dispatch(changeStatusCategoryGetAll(API_FAIL));
         });
     };
 }
