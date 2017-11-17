@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Route, withRouter } from 'react-router-dom';
 
 import './template.css';
 import { getAllCategories } from '../../../core/category/category-actions';
-import { API_IDLE, API_LOADING, API_SUCCESS } from '../../../core/constants';
+import { API_SUCCESS } from '../../../core/constants';
 import Header from '../../components/header';
 import ListCategories from '../../components/list-categories';
 import ListPosts from '../../containers/list-posts';
@@ -16,16 +17,16 @@ class Template extends React.Component {
     render() {
         const { statusCategoryGetAll } = this.props;
 
-        if (statusCategoryGetAll == API_SUCCESS) {
+        if (statusCategoryGetAll === API_SUCCESS) {
             return (
-                <div className="container">
+                <div className='container'>
                     <Header />
 
-                    <div className="main-content">
-                        <ListPosts />
+                    <div className='main-content'>
+                        <Route exact path='/' component={ListPosts} />
+                        <Route path='/:category' component={ListPosts} />
 
                         <ListCategories />
-
                     </div>
                 </div>
             );
@@ -61,4 +62,4 @@ const mapDispatchToProps = (dispatch) => ({
     getAllCategories: () => dispatch(getAllCategories())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Template);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Template));

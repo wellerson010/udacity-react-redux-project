@@ -7,9 +7,11 @@ import { API_LOADING } from '../../../core/constants';
 import ListPostsComponent from '../../components/list-posts';
 
 class ListPosts extends React.Component {
+    
     componentDidMount() {
         this.props.getAllPosts();
     }
+
     /*
         addNew = () => {
             const { history, match: {params} } = this.props;
@@ -30,6 +32,10 @@ class ListPosts extends React.Component {
 
         return accumulator;
     }, []);
+
+    componentWillReceiveProps(){
+        console.log(arguments);
+    }
 
     render() {
         const { posts, statusGetAll, changeOrderAllPosts, fieldOrder, orderAsc, match: { params } } = this.props;
