@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './header.css';
 import { capitalizeWord } from '../../../core/utils';
 
-const Header = ({categories}) => (
+const Header = ({ categories }) => (
     <div className="main-header">
         <div className="content">
             <Link to='/'>
@@ -18,7 +18,12 @@ const Header = ({categories}) => (
                     <div className="sub-menu">
                         <ul>
                             <li key='all'>
-                                Tudo
+                                <NavLink
+                                    exact
+                                    to='/'
+                                    activeClassName="selected">
+                                    Tudo
+                                </NavLink>
                             </li>
                             {
                                 categories.ids.map(id => {
@@ -26,7 +31,9 @@ const Header = ({categories}) => (
 
                                     return (
                                         <li key={id}>
-                                            { capitalizeWord(category.name) }
+                                            <NavLink to={'/' + category.path} activeClassName="selected">
+                                                {capitalizeWord(category.name)}
+                                            </NavLink>
                                         </li>
                                     )
                                 })
@@ -39,8 +46,8 @@ const Header = ({categories}) => (
     </div>
 );
 
-const mapStateToProps = ({category}) => ({
+const mapStateToProps = ({ category }) => ({
     categories: category.all
 });
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(connect(mapStateToProps)(Header));

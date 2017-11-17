@@ -20,3 +20,7 @@
     display: block;
     padding: 5px;
 }
+
+.container-categories-list li a.selected{
+    background: #87a8aa;
+}

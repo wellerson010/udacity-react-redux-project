@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import 'react-block-ui/style.css';
 
@@ -11,9 +11,10 @@ const ListCategories = ({ categories }) => (
         <ul className='container-categories-list'>
             <li key='all'>
                 <NavLink
-                    to='/category/all'
+                    exact
+                    to='/'
                     activeClassName="selected">
-                    All
+                    Tudo
                 </NavLink>
             </li>
             {
@@ -39,4 +40,4 @@ const mapStateToProps = ({ category }) => ({
     categories: category.all
 });
 
-export default connect(mapStateToProps)(ListCategories);
+export default withRouter(connect(mapStateToProps)(ListCategories));

@@ -43,12 +43,12 @@
     top: 100%;
 }
 
-.main-header .sub-menu li {
+.main-header .sub-menu li a {
     display: block;
     padding: 7px 12px;
 }
 
-.main-header .sub-menu li:hover {
+.main-header .sub-menu li:hover, .main-header .sub-menu a.selected {
     background: rgba(255,255,255, .5);
 }
 
