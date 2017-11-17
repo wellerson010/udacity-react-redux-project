@@ -33,8 +33,6 @@ export async function addNewPost({ title, body, author, category }) {
   return data;
 }
 
-export function orderAllPosts(field, asc = true) {
-  const { post } = store.getState();
-
-  return orderByState(post.all, field, asc);
+export function orderAllPosts(posts, field, asc) {
+  return orderByState(posts, field, asc);
 }

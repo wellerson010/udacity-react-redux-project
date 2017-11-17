@@ -10,7 +10,11 @@ import {
 const defaultState = {
     all: {
         ids: [],
-        data: {}
+        data: {},
+        order: {
+            fieldOrder: 'voteScore',
+            orderAsc: true
+        }
     },
     status: {
         getAll: API_IDLE,
@@ -26,14 +30,22 @@ export default function post(state = defaultState, action) {
         case ADD_ALL_POSTS:
             return {
                 ...state,
-                all: action.posts
+                all: {
+                    ...state.all,
+                    ...action.posts
+                }
             }
         case CHANGE_ORDER_ALL_POSTS:
             return {
                 ...state,
                 all: {
                     ...state.all,
-                    ids: action.ids
+                    ids: action.ids,
+                    order: {
+                        ...state.all.order,
+                        fieldOrder: action.fieldOrder,
+                        orderAsc: action.orderAsc
+                    }
                 }
             }
         case CHANGE_STATUS_POST_GET_ALL:

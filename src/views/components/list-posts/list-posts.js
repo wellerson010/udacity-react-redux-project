@@ -6,12 +6,10 @@ import FontAwesome from 'react-fontawesome';
 import { withRouter } from 'react-router-dom';
 
 import './list-posts.css';
-import { orderAllPosts } from '../../../core/post/post-service';
-import { getAllPosts, changeOrderAllPosts } from '../../../core/post/post-actions';
 import IconOrder from '../icon-order';
 
-const ListPosts = ({}) => (
-    <BlockUi blocking={this.props.loading} className='container-posts'>
+const ListPosts = ({ loading, posts, fieldOrder, orderAsc, changeOrder }) => (
+    <BlockUi blocking={loading} className='container-posts'>
         <div className='container-posts-header'>
             <h2 className='title'>Posts</h2>
         </div>
@@ -20,23 +18,32 @@ const ListPosts = ({}) => (
             <span className='title'>Order by</span>
             <div className='options'>
                 {
-                    getContainerIconsOrder('star-o', 'voteScore')
+                    getContainerIconsOrder('star-o', 
+                    'voteScore',
+                    getStatusToIconOrder('voteScore', fieldOrder, orderAsc),
+                    changeOrder)
                 }
                 {
-                    getContainerIconsOrder('calendar', 'timestamp')
+                    getContainerIconsOrder('calendar',
+                    'timestamp',
+                    getStatusToIconOrder('timestamp', fieldOrder, orderAsc),
+                    changeOrder)
                 }
                 {
-                    getContainerIconsOrder('comment-o', 'commentCount')
+                    getContainerIconsOrder('comment-o',
+                    'commentCount',
+                    getStatusToIconOrder('commentCount', fieldOrder, orderAsc),
+                    changeOrder)
                 }
             </div>
         </div>
         <ul className='list'>
             {
-            /*    listPosts.map(post => {
+                posts.map(post => {
                     return (
                         <li key={post.id}>
                             <div className='date'>
-                                {this.formatDate(post.timestamp)}
+                                {formatDate(post.timestamp)}
                             </div>
                             <div className='vote'>
                                 <FontAwesome name='star' />
@@ -45,11 +52,13 @@ const ListPosts = ({}) => (
                             {post.title}
                         </li>
                     )
-                }) */
+                }) 
             }
         </ul>
     </BlockUi>
 );
+
+const formatDate = (timestamp) => moment(timestamp).format('DD/MM/YY hh:mm:ss');
 
 const getContainerIconsOrder = (iconName, field, status, changeOrder) => (
     <div className='icons' onClick={() => changeOrder(field)}>
@@ -59,6 +68,13 @@ const getContainerIconsOrder = (iconName, field, status, changeOrder) => (
         />
     </div>
 );
+
+const getStatusToIconOrder = (field, fieldOrder, orderAsc) => (field !== fieldOrder) ? 0 : (orderAsc) ? 1 : 2;
+
+/*
+
+import { orderAllPosts } from '../../../core/post/post-service';
+import { getAllPosts, changeOrderAllPosts } from '../../../core/post/post-actions';
 
 const mapStateToProps = ({ post }) => {
     return {
@@ -72,6 +88,6 @@ const mapDispatchToProps = (dispatch) => {
         getAllPosts: data => dispatch(getAllPosts(data)),
         changeOrderAllPosts: data => dispatch(changeOrderAllPosts(data))
     }
-}
+} */
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListPosts));
+export default ListPosts;

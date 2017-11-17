@@ -2,76 +2,64 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { changeOrderAllPosts, getAllPosts } from '../../../core/post/post-actions';
+import { API_LOADING } from '../../../core/constants';
 import ListPostsComponent from '../../components/list-posts';
 
 class ListPosts extends React.Component {
-/*
-state = {
-        loading: true,
-        fieldOrder: 'voteScore',
-        orderAsc: true
-    };
-
-    async componentDidMount() {
+    componentDidMount() {
         this.props.getAllPosts();
     }
-
-    addNew = () => {
-        const { history, match: {params} } = this.props;
-        
-        const category = (params.category === 'all')?'':params.category;
-
-        history.push(`/post/new/${category}`);
-    }
-
-    changeOrder = (field) => {
-        let orderAsc = (this.state.fieldOrder === field) ? !this.state.orderAsc : true;
-
-        this.setState({
-            fieldOrder: field,
-            orderAsc: orderAsc
-        }, () => {
-            const ids = orderAllPosts(field, orderAsc);
-            this.props.changeOrderAllPosts(ids);
-        });
-    }
+    /*
+        addNew = () => {
+            const { history, match: {params} } = this.props;
+            
+            const category = (params.category === 'all')?'':params.category;
+    
+            history.push(`/post/new/${category}`);
+        }
+    
+    */
 
     filterPostsByCategory = (posts, category) => posts.ids.reduce((accumulator, value) => {
         const post = posts.data[value];
 
-        if (category === 'all' || post.category === category) {
+        if (!category || post.category === category) {
             accumulator.push(post);
         }
 
         return accumulator;
     }, []);
 
-    formatDate = (timestamp) => moment(timestamp).format('DD/MMM');
+    render() {
+        const { posts, statusGetAll, changeOrderAllPosts, fieldOrder, orderAsc, match: { params } } = this.props;
+        const listPosts = this.filterPostsByCategory(posts, params.category);
+        const loading = (statusGetAll === API_LOADING) ? true : false;
 
-    getStatusToIconOrder = (field) => (field !== this.state.fieldOrder) ? 0 : (this.state.orderAsc) ? 1 : 2;
-
-    getContainerIconsOrder = (iconName, field) => (
-        <div className='icons' onClick={() => this.changeOrder(field)}>
-            <IconOrder
-                iconName={iconName}
-                status={this.getStatusToIconOrder(field)}
-            />
-        </div>
-    );
-*/
-
-/* const { posts, match: {params} } = this.props;
-
-        const listPosts = this.filterPostsByCategory(posts.all, params.category);*/
-
-    render (){
         return (
             <div className='container-posts'>
-                <ListPostsComponent />
-                aaa
+                <ListPostsComponent
+                    posts={listPosts}
+                    loading={loading}
+                    fieldOrder={fieldOrder}
+                    orderAsc={orderAsc}
+                    changeOrder={changeOrderAllPosts}
+                />
             </div>
         );
     }
 }
 
-export default withRouter(connect()(ListPosts));
+const mapStateToProps = ({ post }) => ({
+    statusGetAll: post.status.getAll,
+    posts: post.all,
+    fieldOrder: post.all.order.fieldOrder,
+    orderAsc: post.all.order.orderAsc
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    changeOrderAllPosts: (data) => dispatch(changeOrderAllPosts(data)),
+    getAllPosts: () => dispatch(getAllPosts())
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListPosts));
