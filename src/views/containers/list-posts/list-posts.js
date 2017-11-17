@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { changeOrderAllPosts, getAllPosts } from '../../../core/post/post-actions';
+import { changeOrderAllPosts, getAllPosts, votePost } from '../../../core/post/post-actions';
 import { API_LOADING } from '../../../core/constants';
 import ListPostsComponent from '../../components/list-posts';
 
@@ -38,7 +38,7 @@ class ListPosts extends React.Component {
     }
 
     render() {
-        const { posts, statusGetAll, changeOrderAllPosts, fieldOrder, orderAsc, match: { params } } = this.props;
+        const { posts, statusGetAll, changeOrderAllPosts, fieldOrder, orderAsc, votePost, match: { params } } = this.props;
         const listPosts = this.filterPostsByCategory(posts, params.category);
         const loading = (statusGetAll === API_LOADING) ? true : false;
 
@@ -49,7 +49,8 @@ class ListPosts extends React.Component {
                     loading={loading}
                     fieldOrder={fieldOrder}
                     orderAsc={orderAsc}
-                    changeOrder={changeOrderAllPosts}
+                    handleChangeOrder={changeOrderAllPosts}
+                    handleVote={votePost}
                 />
             </div>
         );
@@ -65,7 +66,8 @@ const mapStateToProps = ({ post }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     changeOrderAllPosts: (data) => dispatch(changeOrderAllPosts(data)),
-    getAllPosts: () => dispatch(getAllPosts())
+    getAllPosts: () => dispatch(getAllPosts()),
+    votePost: (postId, option) => dispatch(votePost(postId, option))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListPosts));

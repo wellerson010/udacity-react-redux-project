@@ -6,9 +6,10 @@ import {
     API_SUCCESS,
     CHANGE_ORDER_ALL_POSTS,
     CHANGE_STATUS_POST_GET_ALL,
-    CHANGE_STATUS_POST_SAVE
+    CHANGE_STATUS_POST_SAVE,
+    VOTE_POST
 } from '../constants';
-import { addNewPost, getAll, orderAllPosts } from './post-service';
+import { addNewPost, getAll, orderAllPosts, vote } from './post-service';
 import store from '../store';
 
 export function addAllPosts(posts) {
@@ -83,6 +84,19 @@ export function savePost(data) {
             dispatch(changeStatusPostSave(API_SUCCESS));
         }).catch(data => {
             dispatch(changeStatusPostSave(API_FAIL));
+        });
+    }
+}
+
+export function votePost(postId, option){
+    return dispatch => {
+        vote(postId, option).then(data => {
+            console.log(data);
+            dispatch({
+                type: VOTE_POST,
+                id: postId,
+                option
+            });
         });
     }
 }

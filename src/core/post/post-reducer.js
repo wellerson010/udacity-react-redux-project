@@ -4,7 +4,8 @@ import {
     CHANGE_ORDER_ALL_POSTS,
     CHANGE_STATUS_POST_GET_ALL,
     CHANGE_STATUS_POST_SAVE,
-    API_FAIL
+    API_FAIL,
+    VOTE_POST
 } from '../constants';
 
 const defaultState = {
@@ -22,6 +23,9 @@ const defaultState = {
     },
     loading: {
         getAll: false
+    },
+    vote: {
+
     }
 }
 
@@ -62,6 +66,14 @@ export default function post(state = defaultState, action) {
                 status: {
                     ...state.status,
                     savePost: action.status
+                }
+            }
+            case VOTE_POST:
+            return {
+                ...state,
+                vote: {
+                    ...state.vote,
+                    [action.id]: action.option
                 }
             }
         default:
