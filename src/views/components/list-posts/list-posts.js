@@ -20,7 +20,7 @@ const ListPosts = ({
     handleModalAddClose,
     handleModalAddOpen
 }) => (
-        <BlockUi blocking={loading} className='container-posts'>
+        <BlockUi blocking={loading}>
             <Rodal visible={modalAddOpened} onClose={handleModalAddClose} height={440}>
                 <EditItem
                     mode={SAVE}
@@ -72,6 +72,7 @@ const ListPosts = ({
                                     type={POST}
                                     data={post}
                                     mode={EDIT}
+                                    linkToPost={true}
                                 />
                             </li>
                         )

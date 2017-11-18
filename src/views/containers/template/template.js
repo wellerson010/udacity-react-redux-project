@@ -7,7 +7,8 @@ import { getAllCategories } from '../../../core/category/category-actions';
 import { API_SUCCESS } from '../../../core/constants';
 import Header from '../../components/header';
 import ListCategories from '../../components/list-categories';
-import ListPosts from '../../containers/list-posts';
+import ListPosts from '../list-posts';
+import DetailPost from '../detail-post';
 
 class Template extends React.Component {
     componentDidMount() {
@@ -24,7 +25,8 @@ class Template extends React.Component {
 
                     <div className='main-content'>
                         <Route exact path='/' component={ListPosts} />
-                        <Route path='/:category' component={ListPosts} />
+                        <Route exact path='/:category' component={ListPosts} />
+                        <Route path='/:category/:post_id' component={DetailPost} />
 
                         <ListCategories />
                     </div>

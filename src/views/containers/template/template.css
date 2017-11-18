@@ -20,7 +20,7 @@
     display: flex;
 }
 
-.container .container-posts{
+.container .container-posts, .container .container-detail-post{
     flex-grow: 1;
 }
 

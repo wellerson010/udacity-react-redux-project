@@ -23,7 +23,7 @@ const ListCategories = ({ categories }) => (
 
                     return (
                         <li key={id}>
-                            <NavLink to={'/' + category.path} activeClassName="selected">
+                            <NavLink exact to={'/' + category.path} activeClassName="selected">
                                 {
                                     category.name
                                 }

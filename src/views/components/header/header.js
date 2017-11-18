@@ -31,7 +31,7 @@ const Header = ({ categories }) => (
 
                                     return (
                                         <li key={id}>
-                                            <NavLink to={'/' + category.path} activeClassName="selected">
+                                            <NavLink exact to={'/' + category.path} activeClassName="selected">
                                                 {capitalizeWord(category.name)}
                                             </NavLink>
                                         </li>
