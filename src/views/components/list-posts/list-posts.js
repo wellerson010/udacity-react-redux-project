@@ -1,12 +1,11 @@
 import React from 'react';
 import BlockUi from 'react-block-ui';
-import moment from 'moment';
-import FontAwesome from 'react-fontawesome';
 import { NavLink } from 'react-router-dom';
 
 import './list-posts.css';
+import ContentItem from '../content-item';
 import IconOrder from '../icon-order';
-import Vote from '../vote';
+import { POST } from '../../../core/constants';
 
 const ListPosts = ({ loading, posts, fieldOrder, orderAsc, votes, handleChangeOrder, handleVote }) => (
     <BlockUi blocking={loading} className='container-posts'>
@@ -45,38 +44,12 @@ const ListPosts = ({ loading, posts, fieldOrder, orderAsc, votes, handleChangeOr
                 posts.map(post => {
                     return (
                         <li key={post.id} className='post'>
-                            <NavLink to='/'>
-                                <div className='date'>
-                                    {formatDate(post.timestamp)}
-                                </div>
-                                <div>
-                                    <div className='title'>
-                                        {post.title}
-                                    </div>
-                                    <div className='info'>
-                                        <div className='data-info' title='Votação'>
-                                            <FontAwesome name='star' className='star' />
-                                            {post.voteScore}
-
-                                            <Vote 
-                                                handleVote={handleVote}
-                                                id={post.id}
-                                                votes={votes}
-                                            />
-                                        </div>
-
-                                        <div className='data-info' title='Comentários'>
-                                            <FontAwesome name='comment-o' />
-                                            {post.commentCount}
-                                        </div>
-
-                                        <div className='data-info' title='Autor'>
-                                            <FontAwesome name='user-o' />
-                                            {post.author}
-                                        </div>
-                                    </div>
-                                </div>
-                            </NavLink>
+                            <ContentItem 
+                                data={post}
+                                handleVote={handleVote}
+                                votes={votes}
+                                type={POST}
+                            />
                         </li>
                     )
                 })
@@ -85,7 +58,7 @@ const ListPosts = ({ loading, posts, fieldOrder, orderAsc, votes, handleChangeOr
     </BlockUi>
 );
 
-const formatDate = (timestamp) => moment(timestamp).format('DD/MM/YY hh:mm:ss');
+
 
 const getContainerIconsOrder = (iconName, field, status, title, changeOrder) => (
     <div className='icons' onClick={() => changeOrder(field)} title={title}>

@@ -22,7 +22,11 @@ export const CHANGE_STATUS_POST_GET_ALL = 'CHANGE_STATUS_POST_GET_ALL';
 
 export const CHANGE_STATUS_POST_SAVE = 'CHANGE_STATUS_POST_SAVE';
 
+export const COMMENT = 'COMMENT';
+
 export const DOWN_VOTE = 'downVote';
+
+export const POST = 'POST';
 
 export const REMOVE_VOTE_POST = 'REMOVE_VOTE_POST';
 

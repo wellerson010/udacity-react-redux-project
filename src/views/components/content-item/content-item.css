@@ -1,0 +1,35 @@
+.content-item{
+    display: flex;
+}
+
+.content-item .date{
+    background: #2f8a91;
+    color: #fff;
+    display: inline-block;
+    font-size: 13px;
+    margin-right: 6px;
+    padding: 5px;
+    text-align: center;
+    width: 64px;
+}
+
+.content-item .container-vote{
+    display: inline-block;
+}
+
+.content-item .data-info  {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.content-item .data-info .fa{
+    margin-right: 5px;
+}
+
+.content-item .star {
+    color: rgb(255, 213, 0);
+}
+
+.content-item .info{
+    flex-grow: 1;
+}
