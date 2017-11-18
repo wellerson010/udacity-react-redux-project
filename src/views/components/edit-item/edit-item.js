@@ -4,7 +4,7 @@ import './edit-item.css';
 import { SAVE } from '../../../core/constants';
 
 const EditItem = ({ title, body, mode, handleChange, handleSave, handleCancel }) => (
-    <div className='edit-item'>
+    <div className='container-edit-item'>
         <div>
             <label className='field'>
                 <span className='block'>Título</span>

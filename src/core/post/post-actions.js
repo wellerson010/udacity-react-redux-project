@@ -11,10 +11,11 @@ import {
     CHANGE_VOTE_POST,
     DELETE_POST,
     DOWN_VOTE,
+    EDIT_POST,
     REMOVE_VOTE_POST,
     UP_VOTE
 } from '../constants';
-import { addNewPost, deletePost as del, getAll, orderAllPosts, votePost } from './post-service';
+import { addNewPost, deletePost as del, getAll, edit, orderAllPosts, votePost } from './post-service';
 import store from '../store';
 
 export function addAllPosts(posts) {
@@ -66,6 +67,19 @@ export function deletePost(postId){
         dispatch({
             type: DELETE_POST,
             id: postId
+        });
+    }
+}
+
+export function editPost(id, title, body){
+    return async dispatch => {
+        await edit(id, title, body);
+
+        dispatch({
+            type: EDIT_POST,
+            id,
+            title, 
+            body
         });
     }
 }

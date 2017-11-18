@@ -33,3 +33,7 @@ button:hover{
 input {
   padding: 3px;
 }
+
+.rodal-dialog{
+  overflow: auto;
+}

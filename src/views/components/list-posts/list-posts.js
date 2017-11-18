@@ -6,7 +6,7 @@ import './list-posts.css';
 import ContentItem from '../../containers/content-item';
 import IconOrder from '../icon-order';
 import EditItem from '../edit-item';
-import { POST } from '../../../core/constants';
+import { EDIT, POST } from '../../../core/constants';
 
 const ListPosts = ({
     loading,
@@ -55,6 +55,7 @@ const ListPosts = ({
                                 <ContentItem
                                     type={POST}
                                     data={post}
+                                    mode={EDIT}
                                 />
                             </li>
                         )

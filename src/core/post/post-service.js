@@ -32,6 +32,19 @@ export async function deletePost(id){
   return data;
 }
 
+export async function edit(id, title, body){
+  const data = await request({
+    url: `/posts/${id}`,
+    method: 'put',
+    data: {
+      title,
+      body
+    }
+  });
+
+  return data;
+}
+
 export async function getAll() {
   const data = await request({
     url: '/posts'

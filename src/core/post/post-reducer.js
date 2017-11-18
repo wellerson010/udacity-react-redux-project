@@ -10,6 +10,7 @@ import {
     CHANGE_VOTE_POST,
     DELETE_POST,
     DOWN_VOTE,
+    EDIT_POST,
     REMOVE_VOTE_POST,
     UP_VOTE
 } from '../constants';
@@ -108,6 +109,21 @@ export default function post(state = defaultState, action) {
                     ids: state.all.ids.filter(id => id !== action.id),
                     data: {
                         ...omit(state.all.data, [action.id])
+                    }
+                }
+            }
+        case EDIT_POST:
+            return {
+                ...state,
+                all: {
+                    ...state.all,
+                    data: {
+                        ...state.all.data,
+                        [action.id]: {
+                            ...state.all.data[action.id],
+                            title: action.title,
+                            body: action.body
+                        }
                     }
                 }
             }

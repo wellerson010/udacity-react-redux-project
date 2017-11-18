@@ -6,14 +6,28 @@ import 'rodal/lib/rodal.css';
 
 import './content-item.css';
 import Vote from '../vote';
-import { POST } from '../../../core/constants';
+import { EDIT, POST } from '../../../core/constants';
 import EditItem from '../../containers/edit-item';
 
-const ContentItem = ({ type, data, votes, handleVote, handleDelete, handleEdit, handleModalEditClose, modalEditOpened }) => (
+const ContentItem = ({ 
+    type, 
+    data, 
+    votes,
+    handleVote, 
+    handleDelete,
+    handleEdit, 
+    handleModalEditClose, 
+    handleSave,
+    modalEditOpened
+}) => (
     <div className='content-item'>
-        <Rodal visible={modalEditOpened} onClose={handleModalEditClose}>
+        <Rodal visible={modalEditOpened} onClose={handleModalEditClose} height={440}>
             <EditItem 
+                mode={EDIT}
+                data={data}
+                type={type}
                 handleCancel= {handleModalEditClose}
+                handleSave={handleSave}
             />
         </Rodal >
 

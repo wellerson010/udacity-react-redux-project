@@ -1,14 +1,17 @@
 import React from 'react';
 
 import EditItemComponent from '../../components/edit-item';
+import { EDIT, POST } from '../../../core/constants';
 
 export default class EditItem extends React.Component {
     constructor(props){
         super(props);
 
+        const { mode, data } = props;
+
         this.state = {
-            title: '',
-            body: ''
+            title: (mode == EDIT)?data.title:'',
+            body: (mode == EDIT)?data.body:''
         }
     }
 
@@ -18,13 +21,20 @@ export default class EditItem extends React.Component {
         });
     }
 
+    handleSave = () => {
+        const { handleSave, data } = this.props;
+
+        handleSave(data.id, this.state.title, this.state.body);
+    }
+
     render (){
-        const { handleCancel } = this.props;
+        const { handleCancel, data, mode, type } = this.props;
 
         return (
             <EditItemComponent 
                 handleCancel={handleCancel}
                 handleChange={this.handle}
+                handleSave={this.handleSave}
                 title={this.state.title}
                 body={this.state.body}
             />
