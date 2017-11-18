@@ -24,6 +24,8 @@ export const CHANGE_STATUS_POST_SAVE = 'CHANGE_STATUS_POST_SAVE';
 
 export const COMMENT = 'COMMENT';
 
+export const DELETE_POST = 'DELETE_POST';
+
 export const DOWN_VOTE = 'downVote';
 
 export const POST = 'POST';

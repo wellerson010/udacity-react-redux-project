@@ -8,6 +8,7 @@ import {
     CHANGE_STATUS_POST_GET_ALL,
     CHANGE_STATUS_POST_SAVE,
     CHANGE_VOTE_POST,
+    DELETE_POST,
     DOWN_VOTE,
     REMOVE_VOTE_POST,
     UP_VOTE
@@ -96,6 +97,17 @@ export default function post(state = defaultState, action) {
                             ...state.all.data[action.id],
                             voteScore: totalVotes + valueToIncrement
                         }
+                    }
+                }
+            }
+        case DELETE_POST:
+            return {
+                ...state,
+                all: {
+                    ...state.all,
+                    ids: state.all.ids.filter(id => id !== action.id),
+                    data: {
+                        ...omit(state.all.data, [action.id])
                     }
                 }
             }

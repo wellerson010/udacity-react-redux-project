@@ -9,11 +9,12 @@ import {
     CHANGE_STATUS_POST_GET_ALL,
     CHANGE_STATUS_POST_SAVE,
     CHANGE_VOTE_POST,
+    DELETE_POST,
     DOWN_VOTE,
     REMOVE_VOTE_POST,
     UP_VOTE
 } from '../constants';
-import { addNewPost, getAll, orderAllPosts, votePost } from './post-service';
+import { addNewPost, deletePost as del, getAll, orderAllPosts, votePost } from './post-service';
 import store from '../store';
 
 export function addAllPosts(posts) {
@@ -56,6 +57,16 @@ export function changeStatusPostSave(status) {
     return {
         type: CHANGE_STATUS_POST_SAVE,
         status
+    }
+}
+
+export function deletePost(postId){
+    return async dispatch => {
+        await del(postId);
+        dispatch({
+            type: DELETE_POST,
+            id: postId
+        });
     }
 }
 

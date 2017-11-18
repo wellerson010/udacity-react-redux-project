@@ -23,6 +23,15 @@ export async function addNewPost({ title, body, author, category }) {
   return data;
 }
 
+export async function deletePost(id){
+  const data = await request({
+    url: `/posts/${id}`,
+    method: 'delete'
+  });
+
+  return data;
+}
+
 export async function getAll() {
   const data = await request({
     url: '/posts'

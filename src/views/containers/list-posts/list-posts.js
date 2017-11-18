@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { changeOrderAllPosts, getAllPosts, vote } from '../../../core/post/post-actions';
+import { changeOrderAllPosts, deletePost, getAllPosts, vote } from '../../../core/post/post-actions';
 import { API_LOADING } from '../../../core/constants';
 import ListPostsComponent from '../../components/list-posts';
 
@@ -40,6 +40,7 @@ class ListPosts extends React.Component {
             fieldOrder,
             orderAsc, 
             votePost, 
+            deletePost,
             votes,
             match: { params } } = this.props;
         const listPosts = this.filterPostsByCategory(posts, params.category);
@@ -56,6 +57,7 @@ class ListPosts extends React.Component {
                     orderAsc={orderAsc}
                     handleChangeOrder={changeOrderAllPosts}
                     handleVote={votePost}
+                    handleDelete={deletePost}
                     votes={votes}
                 />
             </div>
@@ -73,6 +75,7 @@ const mapStateToProps = ({ post }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     changeOrderAllPosts: (data) => dispatch(changeOrderAllPosts(data)),
+    deletePost: (data) => dispatch(deletePost(data)),
     getAllPosts: () => dispatch(getAllPosts()),
     votePost: (postId, option) => dispatch(vote(postId, option))
 });

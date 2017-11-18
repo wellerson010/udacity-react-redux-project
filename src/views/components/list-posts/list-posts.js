@@ -7,7 +7,7 @@ import ContentItem from '../content-item';
 import IconOrder from '../icon-order';
 import { POST } from '../../../core/constants';
 
-const ListPosts = ({ loading, posts, fieldOrder, orderAsc, votes, handleChangeOrder, handleVote }) => (
+const ListPosts = ({ loading, posts, fieldOrder, orderAsc, votes, handleChangeOrder, handleVote, handleDelete }) => (
     <BlockUi blocking={loading} className='container-posts'>
         <div className='container-posts-header'>
             <h2 className='title'>Posts</h2>
@@ -49,6 +49,7 @@ const ListPosts = ({ loading, posts, fieldOrder, orderAsc, votes, handleChangeOr
                                 handleVote={handleVote}
                                 votes={votes}
                                 type={POST}
+                                handleDelete={handleDelete}
                             />
                         </li>
                     )

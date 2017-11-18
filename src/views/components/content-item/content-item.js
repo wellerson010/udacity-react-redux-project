@@ -6,7 +6,7 @@ import './content-item.css';
 import Vote from '../vote';
 import { POST } from '../../../core/constants';
 
-const ContentItem = ({ type, data, handleVote, votes }) => (
+const ContentItem = ({ type, data, votes, handleVote, handleDelete }) => (
     <div className='content-item'>
         <div className='date'>
             {formatDate(data.timestamp)}
@@ -43,6 +43,10 @@ const ContentItem = ({ type, data, handleVote, votes }) => (
                 </div>
             </div>
         </div>
+        <div className='actions'>
+                <FontAwesome name='pencil' title='Editar'/>
+                <FontAwesome name='trash' title='Deletar' onClick={() => handleDelete(data.id)}/>
+            </div>
     </div>
 );
 

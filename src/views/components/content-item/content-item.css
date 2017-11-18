@@ -33,3 +33,12 @@
 .content-item .info{
     flex-grow: 1;
 }
+
+.content-item .actions .fa {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.content-item .actions .fa:hover{
+    color: #ccc;
+}
