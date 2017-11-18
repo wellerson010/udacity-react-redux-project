@@ -48,22 +48,28 @@ class EditItem extends React.Component {
     }
 
     render (){
-        const { handleCancel, data, mode, type } = this.props;
+        const { handleCancel, data, mode, type, categories } = this.props;
+
+        const { title, body, author, category } = this.state;
 
         return (
             <EditItemComponent 
                 handleCancel={handleCancel}
                 handleChange={this.handle}
                 handleSave={this.handleSave}
-                title={this.state.title}
-                body={this.state.body}
+                title={title}
+                body={body}
+                mode={mode}
+                author={author}
+                category={category}
+                categories={categories}
             />
         )
     }
 }
 
-const mapStateToProps = () => ({
-    
+const mapStateToProps = ({post, category}) => ({
+    categories: category.all
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {

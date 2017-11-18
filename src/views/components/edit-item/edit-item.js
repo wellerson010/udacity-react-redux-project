@@ -2,9 +2,40 @@ import React from 'react';
 
 import './edit-item.css';
 import { SAVE } from '../../../core/constants';
+import { capitalizeWord } from '../../../core/utils';
 
-const EditItem = ({ title, body, mode, handleChange, handleSave, handleCancel }) => (
+const EditItem = ({ title, body, author, category, categories, mode, handleChange, handleSave, handleCancel }) => (
     <div className='container-edit-item'>
+        {
+            mode == SAVE &&
+            <div>
+                <label className='field'>
+                    <span className='inline'>Autor</span>
+                    <input onChange={handleChange} value={author} name='author' />
+                </label>
+            </div>
+        }
+        {
+            mode == SAVE &&
+            <label className='field'>
+                <span className='inline'>Categoria</span>
+                <select className='categories' value={category} onChange={handleChange} name='category'>
+                    {
+                        categories.ids.map(id => {
+                            const category = categories.data[id];
+
+                            return (
+                                <option
+                                    value={id}
+                                    key={id}>
+                                    {capitalizeWord(category.name)}
+                                </option>
+                            );
+                        })
+                    }
+                </select>
+            </label>
+        }
         <div>
             <label className='field'>
                 <span className='block'>Título</span>
