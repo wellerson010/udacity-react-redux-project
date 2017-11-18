@@ -28,6 +28,10 @@
     width: 64px;
 }
 
+.container-posts .container-vote{
+    display: inline-block;
+}
+
 .container-posts .list .data-info  {
     display: inline-block;
     margin-right: 20px;
@@ -50,15 +54,6 @@
 
 .container-posts .list .star {
     color: gold;
-}
-
-.container-posts .list .vote{
-    margin: 0 !important;
-    font-size: 12px;
-}
-
-.container-posts .list .vote:hover{
-    color: #ccc;
 }
 
 .container-posts .list li:not(:last-child){
@@ -86,3 +81,4 @@
 .container-posts-order .options .fa:hover{
     color: #666;
 }
+

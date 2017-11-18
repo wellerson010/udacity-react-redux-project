@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { changeOrderAllPosts, getAllPosts, votePost } from '../../../core/post/post-actions';
+import { changeOrderAllPosts, getAllPosts, vote } from '../../../core/post/post-actions';
 import { API_LOADING } from '../../../core/constants';
 import ListPostsComponent from '../../components/list-posts';
 
@@ -33,14 +33,19 @@ class ListPosts extends React.Component {
         return accumulator;
     }, []);
 
-    componentWillReceiveProps(){
-        console.log(arguments);
-    }
-
     render() {
-        const { posts, statusGetAll, changeOrderAllPosts, fieldOrder, orderAsc, votePost, match: { params } } = this.props;
+        const { posts, 
+            statusGetAll, 
+            changeOrderAllPosts, 
+            fieldOrder,
+            orderAsc, 
+            votePost, 
+            votes,
+            match: { params } } = this.props;
         const listPosts = this.filterPostsByCategory(posts, params.category);
         const loading = (statusGetAll === API_LOADING) ? true : false;
+
+            console.log(votes);
 
         return (
             <div className='container-posts'>
@@ -51,6 +56,7 @@ class ListPosts extends React.Component {
                     orderAsc={orderAsc}
                     handleChangeOrder={changeOrderAllPosts}
                     handleVote={votePost}
+                    votes={votes}
                 />
             </div>
         );
@@ -58,16 +64,17 @@ class ListPosts extends React.Component {
 }
 
 const mapStateToProps = ({ post }) => ({
-    statusGetAll: post.status.getAll,
-    posts: post.all,
     fieldOrder: post.all.order.fieldOrder,
-    orderAsc: post.all.order.orderAsc
+    orderAsc: post.all.order.orderAsc,
+    posts: post.all,
+    statusGetAll: post.status.getAll,
+    votes: post.vote
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeOrderAllPosts: (data) => dispatch(changeOrderAllPosts(data)),
     getAllPosts: () => dispatch(getAllPosts()),
-    votePost: (postId, option) => dispatch(votePost(postId, option))
+    votePost: (postId, option) => dispatch(vote(postId, option))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListPosts));

@@ -1,14 +1,14 @@
 import React from 'react';
 import BlockUi from 'react-block-ui';
-import { connect } from 'react-redux';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
-import { withRouter, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './list-posts.css';
 import IconOrder from '../icon-order';
+import Vote from '../vote';
 
-const ListPosts = ({ loading, posts, fieldOrder, orderAsc, handleChangeOrder, handleVote }) => (
+const ListPosts = ({ loading, posts, fieldOrder, orderAsc, votes, handleChangeOrder, handleVote }) => (
     <BlockUi blocking={loading} className='container-posts'>
         <div className='container-posts-header'>
             <h2 className='title'>Posts</h2>
@@ -58,8 +58,11 @@ const ListPosts = ({ loading, posts, fieldOrder, orderAsc, handleChangeOrder, ha
                                             <FontAwesome name='star' className='star' />
                                             {post.voteScore}
 
-                                            <FontAwesome name='chevron-up' className='vote vote-up' title='Gostei'/>
-                                            <FontAwesome name='chevron-down' className='vote vote-down' title='Não gostei'/>
+                                            <Vote 
+                                                handleVote={handleVote}
+                                                id={post.id}
+                                                votes={votes}
+                                            />
                                         </div>
 
                                         <div className='data-info' title='Comentários'>
@@ -94,24 +97,5 @@ const getContainerIconsOrder = (iconName, field, status, title, changeOrder) => 
 );
 
 const getStatusToIconOrder = (field, fieldOrder, orderAsc) => (field !== fieldOrder) ? 0 : (orderAsc) ? 1 : 2;
-
-/*
-
-import { orderAllPosts } from '../../../core/post/post-service';
-import { getAllPosts, changeOrderAllPosts } from '../../../core/post/post-actions';
-
-const mapStateToProps = ({ post }) => {
-    return {
-        posts: post,
-        loading: post.loading.getAll
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getAllPosts: data => dispatch(getAllPosts(data)),
-        changeOrderAllPosts: data => dispatch(changeOrderAllPosts(data))
-    }
-} */
 
 export default ListPosts;

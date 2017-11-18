@@ -1,5 +1,5 @@
-import store from '../store';
 import request from '../api';
+import { DOWN_VOTE, UP_VOTE } from '../constants';
 import { normalizeData, orderByState } from '../utils';
 
 export async function addNewPost({ title, body, author, category }) {
@@ -7,10 +7,10 @@ export async function addNewPost({ title, body, author, category }) {
 
   const post = {
     id: time,
-    timestamp: time, 
+    timestamp: time,
     title,
     body,
-    author, 
+    author,
     category
   }
 
@@ -37,12 +37,13 @@ export function orderAllPosts(posts, field, asc) {
   return orderByState(posts, field, asc);
 }
 
-export async function vote(id, option){
+export async function votePost(id, vote) {
+
   const data = await request({
-    url: `/post/${id}`,
-    method: 'put',
+    url: `/posts/${id}`,
+    method: 'post',
     data: {
-      option
+      option: vote
     }
   });
 

@@ -1,11 +1,16 @@
+import omit from 'lodash.omit';
+
 import {
     API_IDLE,
     ADD_ALL_POSTS,
+    ADD_VOTE_POST,
     CHANGE_ORDER_ALL_POSTS,
     CHANGE_STATUS_POST_GET_ALL,
     CHANGE_STATUS_POST_SAVE,
-    API_FAIL,
-    VOTE_POST
+    CHANGE_VOTE_POST,
+    DOWN_VOTE,
+    REMOVE_VOTE_POST,
+    UP_VOTE
 } from '../constants';
 
 const defaultState = {
@@ -39,6 +44,14 @@ export default function post(state = defaultState, action) {
                     ...action.posts
                 }
             }
+        case ADD_VOTE_POST:
+            return {
+                ...state,
+                vote: {
+                    ...state.vote,
+                    [action.id]: action.vote
+                }
+            }
         case CHANGE_ORDER_ALL_POSTS:
             return {
                 ...state,
@@ -68,12 +81,29 @@ export default function post(state = defaultState, action) {
                     savePost: action.status
                 }
             }
-            case VOTE_POST:
+        case CHANGE_VOTE_POST:
+            const totalVotes = state.all.data[action.id].voteScore;
+            const value = (action.multiply) ? 2 : 1;
+            const valueToIncrement = (action.vote == UP_VOTE) ? value : -(value);
+
+            return {
+                ...state,
+                all: {
+                    ...state.all,
+                    data: {
+                        ...state.all.data,
+                        [action.id]: {
+                            ...state.all.data[action.id],
+                            voteScore: totalVotes + valueToIncrement
+                        }
+                    }
+                }
+            }
+        case REMOVE_VOTE_POST:
             return {
                 ...state,
                 vote: {
-                    ...state.vote,
-                    [action.id]: action.option
+                    ...omit(state.vote, [action.id])
                 }
             }
         default:

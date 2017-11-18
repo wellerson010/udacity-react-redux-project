@@ -1,0 +1,14 @@
+
+.container-vote .vote{
+    margin: 0 !important;
+    font-size: 12px;
+}
+
+.container-vote .vote:hover{
+    color: #ccc;
+}
+
+.container-vote .vote.active{
+    color: #2f8a91;
+}
+

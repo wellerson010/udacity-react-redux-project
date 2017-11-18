@@ -4,12 +4,16 @@ import {
     API_IDLE,
     API_LOADING,
     API_SUCCESS,
+    ADD_VOTE_POST,
     CHANGE_ORDER_ALL_POSTS,
     CHANGE_STATUS_POST_GET_ALL,
     CHANGE_STATUS_POST_SAVE,
-    VOTE_POST
+    CHANGE_VOTE_POST,
+    DOWN_VOTE,
+    REMOVE_VOTE_POST,
+    UP_VOTE
 } from '../constants';
-import { addNewPost, getAll, orderAllPosts, vote } from './post-service';
+import { addNewPost, getAll, orderAllPosts, votePost } from './post-service';
 import store from '../store';
 
 export function addAllPosts(posts) {
@@ -23,11 +27,11 @@ export function changeOrderAllPosts(fieldOrder, orderAsc) {
     const { post } = store.getState();
     const { order } = post.all;
 
-    if (!fieldOrder){
+    if (!fieldOrder) {
         fieldOrder = order.fieldOrder;
     }
 
-    if (typeof (orderAsc) == 'undefined') {
+    if (typeof (orderAsc) === 'undefined') {
         orderAsc = (order.fieldOrder === fieldOrder) ? !order.orderAsc : true;
     }
 
@@ -88,15 +92,58 @@ export function savePost(data) {
     }
 }
 
-export function votePost(postId, option){
-    return dispatch => {
-        vote(postId, option).then(data => {
-            console.log(data);
+export function vote(postId, voteOption) {
+    const { vote } = store.getState().post;
+
+    const userAlreadyVoted = (vote[postId]);
+
+    return async dispatch => {
+        if (userAlreadyVoted) {
+            if (vote[postId] === voteOption) {
+                voteOption = (voteOption === UP_VOTE)?DOWN_VOTE: UP_VOTE;
+
+                await votePost(postId, voteOption);
+
+                dispatch({
+                    type: REMOVE_VOTE_POST,
+                    id: postId
+                });
+                dispatch({
+                    type: CHANGE_VOTE_POST,
+                    id: postId,
+                    vote: voteOption
+                });
+            }
+            else {
+                await votePost(postId, voteOption);
+                await votePost(postId, voteOption); //hack por causa da API
+
+                dispatch({
+                    type: ADD_VOTE_POST,
+                    id: postId,
+                    vote: voteOption,
+                });
+                dispatch({
+                    type: CHANGE_VOTE_POST,
+                    id: postId,
+                    vote: voteOption,
+                    multiply: true
+                });
+            }
+        }
+        else {
+            await votePost(postId, voteOption);
+
             dispatch({
-                type: VOTE_POST,
+                type: ADD_VOTE_POST,
                 id: postId,
-                option
+                vote: voteOption,
             });
-        });
+            dispatch({
+                type: CHANGE_VOTE_POST,
+                id: postId,
+                vote: voteOption
+            });
+        }
     }
 }
