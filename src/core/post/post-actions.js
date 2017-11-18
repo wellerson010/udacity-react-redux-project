@@ -104,13 +104,13 @@ export function savePost(data) {
 }
 
 export function vote(postId, voteOption) {
-    const { vote } = store.getState().post;
+    const { votes } = store.getState().post;
 
-    const userAlreadyVoted = (vote[postId]);
+    const userAlreadyVoted = (votes[postId]);
 
     return async dispatch => {
         if (userAlreadyVoted) {
-            if (vote[postId] === voteOption) {
+            if (votes[postId] === voteOption) {
                 voteOption = (voteOption === UP_VOTE)?DOWN_VOTE: UP_VOTE;
 
                 await votePost(postId, voteOption);

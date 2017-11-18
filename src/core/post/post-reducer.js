@@ -30,7 +30,7 @@ const defaultState = {
     loading: {
         getAll: false
     },
-    vote: {
+    votes: {
 
     }
 }
@@ -48,8 +48,8 @@ export default function post(state = defaultState, action) {
         case ADD_VOTE_POST:
             return {
                 ...state,
-                vote: {
-                    ...state.vote,
+                votes: {
+                    ...state.votes,
                     [action.id]: action.vote
                 }
             }
@@ -114,8 +114,8 @@ export default function post(state = defaultState, action) {
         case REMOVE_VOTE_POST:
             return {
                 ...state,
-                vote: {
-                    ...omit(state.vote, [action.id])
+                votes: {
+                    ...omit(state.votes, [action.id])
                 }
             }
         default:

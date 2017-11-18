@@ -1,13 +1,22 @@
 import React from 'react';
 import moment from 'moment';
 import FontAwesome from 'react-fontawesome';
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
 
 import './content-item.css';
 import Vote from '../vote';
 import { POST } from '../../../core/constants';
+import EditItem from '../../containers/edit-item';
 
-const ContentItem = ({ type, data, votes, handleVote, handleDelete }) => (
+const ContentItem = ({ type, data, votes, handleVote, handleDelete, handleEdit, handleModalEditClose, modalEditOpened }) => (
     <div className='content-item'>
+        <Rodal visible={modalEditOpened} onClose={handleModalEditClose}>
+            <EditItem 
+                handleCancel= {handleModalEditClose}
+            />
+        </Rodal >
+
         <div className='date'>
             {formatDate(data.timestamp)}
         </div>
@@ -44,7 +53,7 @@ const ContentItem = ({ type, data, votes, handleVote, handleDelete }) => (
             </div>
         </div>
         <div className='actions'>
-                <FontAwesome name='pencil' title='Editar'/>
+                <FontAwesome name='pencil' title='Editar' onClick={() => handleEdit(data.id)}/>
                 <FontAwesome name='trash' title='Deletar' onClick={() => handleDelete(data.id)}/>
             </div>
     </div>

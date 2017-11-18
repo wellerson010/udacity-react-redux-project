@@ -8,6 +8,18 @@ import ListPostsComponent from '../../components/list-posts';
 
 class ListPosts extends React.Component {
     
+    constructor(props){
+        super(props);
+
+        this.state = {
+            modalEditOpened: false
+        }
+    }
+
+    closeModal = () => this.setState({
+        modalEditOpened: false
+    });
+
     componentDidMount() {
         this.props.getAllPosts();
     }
@@ -33,20 +45,20 @@ class ListPosts extends React.Component {
         return accumulator;
     }, []);
 
+    openModalEdit = () => this.setState({
+        modalEditOpened: true
+    });
+
     render() {
         const { posts, 
             statusGetAll, 
             changeOrderAllPosts, 
             fieldOrder,
             orderAsc, 
-            votePost, 
-            deletePost,
-            votes,
             match: { params } } = this.props;
+
         const listPosts = this.filterPostsByCategory(posts, params.category);
         const loading = (statusGetAll === API_LOADING) ? true : false;
-
-            console.log(votes);
 
         return (
             <div className='container-posts'>
@@ -56,9 +68,6 @@ class ListPosts extends React.Component {
                     fieldOrder={fieldOrder}
                     orderAsc={orderAsc}
                     handleChangeOrder={changeOrderAllPosts}
-                    handleVote={votePost}
-                    handleDelete={deletePost}
-                    votes={votes}
                 />
             </div>
         );
@@ -75,9 +84,7 @@ const mapStateToProps = ({ post }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     changeOrderAllPosts: (data) => dispatch(changeOrderAllPosts(data)),
-    deletePost: (data) => dispatch(deletePost(data)),
-    getAllPosts: () => dispatch(getAllPosts()),
-    votePost: (postId, option) => dispatch(vote(postId, option))
+    getAllPosts: () => dispatch(getAllPosts())
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListPosts));

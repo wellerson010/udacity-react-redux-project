@@ -28,8 +28,12 @@ export const DELETE_POST = 'DELETE_POST';
 
 export const DOWN_VOTE = 'downVote';
 
+export const EDIT = 'EDIT';
+
 export const POST = 'POST';
 
 export const REMOVE_VOTE_POST = 'REMOVE_VOTE_POST';
+
+export const SAVE = 'SAVE';
 
 export const UP_VOTE = 'upVote';
