@@ -12,28 +12,17 @@ class ListPosts extends React.Component {
         super(props);
 
         this.state = {
-            modalEditOpened: false
+            modalAddOpened: false
         }
     }
 
-    closeModal = () => this.setState({
-        modalEditOpened: false
+    closeModalAdd = () => this.setState({
+        modalAddOpened: false
     });
 
     componentDidMount() {
         this.props.getAllPosts();
     }
-
-    /*
-        addNew = () => {
-            const { history, match: {params} } = this.props;
-            
-            const category = (params.category === 'all')?'':params.category;
-    
-            history.push(`/post/new/${category}`);
-        }
-    
-    */
 
     filterPostsByCategory = (posts, category) => posts.ids.reduce((accumulator, value) => {
         const post = posts.data[value];
@@ -45,8 +34,8 @@ class ListPosts extends React.Component {
         return accumulator;
     }, []);
 
-    openModalEdit = () => this.setState({
-        modalEditOpened: true
+    openModalAdd = () => this.setState({
+        modalAddOpened: true
     });
 
     render() {
@@ -56,6 +45,8 @@ class ListPosts extends React.Component {
             fieldOrder,
             orderAsc, 
             match: { params } } = this.props;
+
+        const { modalAddOpened } = this.state;
 
         const listPosts = this.filterPostsByCategory(posts, params.category);
         const loading = (statusGetAll === API_LOADING) ? true : false;
@@ -68,6 +59,9 @@ class ListPosts extends React.Component {
                     fieldOrder={fieldOrder}
                     orderAsc={orderAsc}
                     handleChangeOrder={changeOrderAllPosts}
+                    modalAddOpened={modalAddOpened}
+                    handleModalAddClose={this.closeModalAdd}
+                    handleModalAddOpen={this.openModalAdd}
                 />
             </div>
         );

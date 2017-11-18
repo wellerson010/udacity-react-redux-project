@@ -3,6 +3,7 @@ import omit from 'lodash.omit';
 import {
     API_IDLE,
     ADD_ALL_POSTS,
+    ADD_POST,
     ADD_VOTE_POST,
     CHANGE_ORDER_ALL_POSTS,
     CHANGE_STATUS_POST_GET_ALL,
@@ -44,6 +45,18 @@ export default function post(state = defaultState, action) {
                 all: {
                     ...state.all,
                     ...action.posts
+                }
+            }
+        case ADD_POST:
+            return {
+                ...state,
+                all: {
+                    ...state.all,
+                    ids: state.all.ids.concat(action.post.id),
+                    data: {
+                        ...state.all.data,
+                        [action.post.id]: action.post
+                    }
                 }
             }
         case ADD_VOTE_POST:

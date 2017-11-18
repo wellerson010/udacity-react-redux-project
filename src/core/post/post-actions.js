@@ -4,6 +4,7 @@ import {
     API_IDLE,
     API_LOADING,
     API_SUCCESS,
+    ADD_POST,
     ADD_VOTE_POST,
     CHANGE_ORDER_ALL_POSTS,
     CHANGE_STATUS_POST_GET_ALL,
@@ -15,13 +16,29 @@ import {
     REMOVE_VOTE_POST,
     UP_VOTE
 } from '../constants';
-import { addNewPost, deletePost as del, getAll, edit, orderAllPosts, votePost } from './post-service';
+import { add, deletePost as del, getAll, edit, orderAllPosts, votePost } from './post-service';
 import store from '../store';
 
 export function addAllPosts(posts) {
     return {
         type: ADD_ALL_POSTS,
         posts
+    }
+}
+
+export function addPost(data) {
+    return dispatch => {
+        dispatch(changeStatusPostSave(API_LOADING));
+
+        add(data).then(post => {
+            dispatch({
+                type: ADD_POST,
+                post: post
+            });
+            dispatch(changeStatusPostSave(API_SUCCESS));
+        }).catch(data => {
+            dispatch(changeStatusPostSave(API_FAIL));
+        });
     }
 }
 
@@ -71,15 +88,15 @@ export function deletePost(postId){
     }
 }
 
-export function editPost(id, title, body){
+export function editPost(data){
     return async dispatch => {
-        await edit(id, title, body);
+        await edit(data.id, data.title, data.body);
 
         dispatch({
             type: EDIT_POST,
-            id,
-            title, 
-            body
+            id: data.id,
+            title: data.title, 
+            body: data.body
         });
     }
 }
@@ -102,18 +119,6 @@ export function resetStatusPostSave() {
     return {
         type: CHANGE_STATUS_POST_SAVE,
         status: API_IDLE
-    }
-}
-
-export function savePost(data) {
-    return dispatch => {
-        dispatch(changeStatusPostSave(API_LOADING));
-
-        addNewPost(data).then(data => {
-            dispatch(changeStatusPostSave(API_SUCCESS));
-        }).catch(data => {
-            dispatch(changeStatusPostSave(API_FAIL));
-        });
     }
 }
 

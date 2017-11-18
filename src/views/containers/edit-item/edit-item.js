@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import EditItemComponent from '../../components/edit-item';
 import { EDIT, POST } from '../../../core/constants';
+import { addPost, editPost } from '../../../core/post/post-actions';
 
-export default class EditItem extends React.Component {
+class EditItem extends React.Component {
     constructor(props){
         super(props);
 
@@ -11,7 +13,9 @@ export default class EditItem extends React.Component {
 
         this.state = {
             title: (mode == EDIT)?data.title:'',
-            body: (mode == EDIT)?data.body:''
+            body: (mode == EDIT)?data.body:'',
+            category: '',
+            author: ''
         }
     }
 
@@ -22,9 +26,25 @@ export default class EditItem extends React.Component {
     }
 
     handleSave = () => {
-        const { handleSave, data } = this.props;
+        const { handleSave, data, mode } = this.props;
+        const { title, body, category, author } = this.state;
 
-        handleSave(data.id, this.state.title, this.state.body);
+        if (mode == EDIT){
+            handleSave({
+                id: data.id,
+                title,
+                body
+            });
+        }
+        else{
+            handleSave({
+                title,
+                body,
+                category,
+                author
+            });
+        }
+       
     }
 
     render (){
@@ -41,3 +61,20 @@ export default class EditItem extends React.Component {
         )
     }
 }
+
+const mapStateToProps = () => ({
+    
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    if (ownProps.type == POST){
+        const saveCallback = (ownProps.mode == EDIT) ? editPost: addPost;
+
+        return {
+            handleSave: (data) => dispatch(saveCallback(data))
+        }
+    }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditItem);

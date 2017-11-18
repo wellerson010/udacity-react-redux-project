@@ -1,24 +1,40 @@
 import React from 'react';
 import BlockUi from 'react-block-ui';
 import { NavLink } from 'react-router-dom';
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
 
 import './list-posts.css';
 import ContentItem from '../../containers/content-item';
 import IconOrder from '../icon-order';
-import EditItem from '../edit-item';
-import { EDIT, POST } from '../../../core/constants';
+import EditItem from '../../containers/edit-item';
+import { EDIT, SAVE, POST } from '../../../core/constants';
 
 const ListPosts = ({
     loading,
     posts,
     fieldOrder,
     orderAsc,
-    handleChangeOrder
+    handleChangeOrder,
+    modalAddOpened,
+    handleModalAddClose,
+    handleModalAddOpen
 }) => (
         <BlockUi blocking={loading} className='container-posts'>
+            <Rodal visible={modalAddOpened} onClose={handleModalAddClose} height={440}>
+                <EditItem
+                    mode={SAVE}
+                    type={POST}
+                    handleCancel={handleModalAddClose}
+                />
+            </Rodal >
 
             <div className='container-posts-header'>
                 <h2 className='title'>Posts</h2>
+
+                <button type='button' onClick={handleModalAddOpen}>
+                    Adicionar Post
+                </button>
             </div>
 
             <div className='container-posts-order'>

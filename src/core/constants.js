@@ -2,6 +2,8 @@ export const ADD_ALL_CATEGORIES = 'ADD_ALL_CATEGORIES';
 
 export const ADD_ALL_POSTS = 'ADD_ALL_POSTS';
 
+export const ADD_POST = 'ADD_POST';
+
 export const API_FAIL = 'API_FAIL';
 
 export const API_IDLE = 'API_IDLE';

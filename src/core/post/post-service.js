@@ -2,7 +2,7 @@ import request from '../api';
 import { DOWN_VOTE, UP_VOTE } from '../constants';
 import { normalizeData, orderByState } from '../utils';
 
-export async function addNewPost({ title, body, author, category }) {
+export async function add({ title, body, author, category }) {
   const time = Date.now();
 
   const post = {

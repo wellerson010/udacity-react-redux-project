@@ -17,7 +17,6 @@ const ContentItem = ({
     handleDelete,
     handleEdit, 
     handleModalEditClose, 
-    handleSave,
     modalEditOpened
 }) => (
     <div className='content-item'>
@@ -27,7 +26,6 @@ const ContentItem = ({
                 data={data}
                 type={type}
                 handleCancel= {handleModalEditClose}
-                handleSave={handleSave}
             />
         </Rodal >
 
