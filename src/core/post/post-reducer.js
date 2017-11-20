@@ -4,15 +4,12 @@ import {
     API_IDLE,
     ADD_ALL_POSTS,
     ADD_POST,
-    ADD_VOTE_POST,
     CHANGE_ORDER_ALL_POSTS,
     CHANGE_STATUS_POST_GET_ALL,
     CHANGE_STATUS_POST_SAVE,
     CHANGE_VOTE_POST,
     DELETE_POST,
-    DOWN_VOTE,
     EDIT_POST,
-    REMOVE_VOTE_POST,
     UP_VOTE
 } from '../constants';
 
@@ -59,14 +56,6 @@ export default function post(state = defaultState, action) {
                     }
                 }
             }
-        case ADD_VOTE_POST:
-            return {
-                ...state,
-                votes: {
-                    ...state.votes,
-                    [action.id]: action.vote
-                }
-            }
         case CHANGE_ORDER_ALL_POSTS:
             return {
                 ...state,
@@ -98,8 +87,6 @@ export default function post(state = defaultState, action) {
             }
         case CHANGE_VOTE_POST:
             const totalVotes = state.all.data[action.id].voteScore;
-            const value = (action.multiply) ? 2 : 1;
-            const valueToIncrement = (action.vote == UP_VOTE) ? value : -(value);
 
             return {
                 ...state,
@@ -109,7 +96,7 @@ export default function post(state = defaultState, action) {
                         ...state.all.data,
                         [action.id]: {
                             ...state.all.data[action.id],
-                            voteScore: totalVotes + valueToIncrement
+                            voteScore: totalVotes + action.amount
                         }
                     }
                 }
@@ -138,13 +125,6 @@ export default function post(state = defaultState, action) {
                             body: action.body
                         }
                     }
-                }
-            }
-        case REMOVE_VOTE_POST:
-            return {
-                ...state,
-                votes: {
-                    ...omit(state.votes, [action.id])
                 }
             }
         default:

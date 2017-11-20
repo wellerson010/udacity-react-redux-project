@@ -78,6 +78,15 @@ export function changeStatusPostSave(status) {
     }
 }
 
+export function changeVotePost(id, vote, amount){
+    return {
+        type: CHANGE_VOTE_POST,
+        id,
+        vote,
+        amount
+    }
+}
+
 export function deletePost(postId){
     return async dispatch => {
         await del(postId);
@@ -112,68 +121,5 @@ export function getAllPosts() {
         }).catch(data => {
             dispatch(changeStatusPostGetAll(API_FAIL));
         });
-    }
-}
-
-export function resetStatusPostSave() {
-    return {
-        type: CHANGE_STATUS_POST_SAVE,
-        status: API_IDLE
-    }
-}
-
-export function vote(postId, voteOption) {
-    const { votes } = store.getState().post;
-
-    const userAlreadyVoted = (votes[postId]);
-
-    return async dispatch => {
-        if (userAlreadyVoted) {
-            if (votes[postId] === voteOption) {
-                voteOption = (voteOption === UP_VOTE)?DOWN_VOTE: UP_VOTE;
-
-                await votePost(postId, voteOption);
-
-                dispatch({
-                    type: REMOVE_VOTE_POST,
-                    id: postId
-                });
-                dispatch({
-                    type: CHANGE_VOTE_POST,
-                    id: postId,
-                    vote: voteOption
-                });
-            }
-            else {
-                await votePost(postId, voteOption);
-                await votePost(postId, voteOption); //hack por causa da API
-
-                dispatch({
-                    type: ADD_VOTE_POST,
-                    id: postId,
-                    vote: voteOption,
-                });
-                dispatch({
-                    type: CHANGE_VOTE_POST,
-                    id: postId,
-                    vote: voteOption,
-                    multiply: true
-                });
-            }
-        }
-        else {
-            await votePost(postId, voteOption);
-
-            dispatch({
-                type: ADD_VOTE_POST,
-                id: postId,
-                vote: voteOption,
-            });
-            dispatch({
-                type: CHANGE_VOTE_POST,
-                id: postId,
-                vote: voteOption
-            });
-        }
     }
 }

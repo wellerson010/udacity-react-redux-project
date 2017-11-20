@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import ContentItemComponent from '../../components/content-item';
 import { EDIT, SAVE, COMMENT, POST } from '../../../core/constants';
-import { addPost, vote as votePost, deletePost, editPost } from '../../../core/post/post-actions';
+import { addPost,  deletePost, editPost } from '../../../core/post/post-actions';
+import { vote } from '../../../core/vote/vote-actions';
 
 class ContentItem extends React.Component {
     constructor(props) {
@@ -43,15 +44,15 @@ class ContentItem extends React.Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    votes: (ownProps.type == POST) ? state.post.votes : state.comment.votes
+const mapStateToProps = ({vote}) => ({
+    votes: vote
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     if (ownProps.type == POST) {
         return {
             handleDelete: (data) => dispatch(deletePost(data)),
-            handleVote: (postId, option) => dispatch(votePost(postId, option))
+            handleVote: (postId, option) => dispatch(vote(postId, option, POST))
         }
     }
 };

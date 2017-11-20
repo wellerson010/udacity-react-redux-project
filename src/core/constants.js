@@ -14,7 +14,7 @@ export const API_LOADING = 'API_LOADING';
 
 export const API_SUCCESS = 'API_SUCCESS';
 
-export const ADD_VOTE_POST = 'ADD_VOTE_POST';
+export const ADD_VOTE = 'ADD_VOTE';
 
 export const CHANGE_VOTE_POST = 'CHANGE_VOTE_POST';
 
@@ -40,7 +40,7 @@ export const EDIT_POST = 'EDIT_POST';
 
 export const POST = 'POST';
 
-export const REMOVE_VOTE_POST = 'REMOVE_VOTE_POST';
+export const REMOVE_VOTE = 'REMOVE_VOTE';
 
 export const SAVE = 'SAVE';
 
