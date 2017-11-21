@@ -1,3 +1,5 @@
+import uuid from 'uuid/v1';
+
 export function orderByState(data, field, asc = true){
     return data.ids.sort((idA, idB) => {
         const valueA = data.data[idA][field];
@@ -11,6 +13,10 @@ export function orderByState(data, field, asc = true){
 
 export function capitalizeWord(word){
     return word.replace(/\b\w/g, l => l.toUpperCase());
+}
+
+export function generateUiid(){
+    return uuid();
 }
 
 export function normalizeData(data, options = {}){
