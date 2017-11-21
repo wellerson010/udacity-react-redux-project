@@ -74,7 +74,7 @@ export function changeStatusPostGetAll(status) {
 export function changeStatusPostSave(status) {
     return {
         type: CHANGE_STATUS_POST_SAVE,
-        status
+        status 
     }
 }
 

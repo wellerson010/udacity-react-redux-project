@@ -2,6 +2,7 @@ import store from '../store';
 import { ADD_VOTE, DOWN_VOTE, POST, REMOVE_VOTE, UP_VOTE } from '../constants';
 import { calculateAmountVote, vote as voteService } from './vote-service';
 import { changeVotePost  } from '../post/post-actions';
+import { changeVoteComment } from '../comment/comment-action';
 
 export function addVote(id, vote){
     return {
@@ -23,7 +24,7 @@ export function vote(id, typeVote, type){
     const userAlreadyVoted = (voteState[id]);
 
     return async dispatch => {
-        const actionCallbackType = (type == POST)?changeVotePost:null;
+        const actionCallbackType = (type == POST)?changeVotePost:changeVoteComment;
 
         if (userAlreadyVoted){
             if (voteState[id] === typeVote){

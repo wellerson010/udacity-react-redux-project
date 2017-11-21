@@ -16,6 +16,8 @@ export const API_SUCCESS = 'API_SUCCESS';
 
 export const ADD_VOTE = 'ADD_VOTE';
 
+export const CHANGE_VOTE_COMMENT = 'CHANGE_VOTE_COMMENT';
+
 export const CHANGE_VOTE_POST = 'CHANGE_VOTE_POST';
 
 export const CHANGE_ORDER_ALL_POSTS = 'CHANGE_ORDER_ALL_POSTS';

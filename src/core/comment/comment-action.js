@@ -3,13 +3,23 @@ import {
     API_SUCCESS,
     API_LOADING,
     ADD_ALL_COMMENTS,
-    CHANGE_STATUS_COMMENT_GET_ALL
+    CHANGE_STATUS_COMMENT_GET_ALL,
+    CHANGE_VOTE_COMMENT
 } from '../constants';
 
 export function addAllComments(comments){
     return {
         type: ADD_ALL_COMMENTS,
         comments
+    }
+}
+
+export function changeVoteComment(id, vote, amount){
+    return {
+        type: CHANGE_VOTE_COMMENT,
+        id,
+        vote,
+        amount
     }
 }
 

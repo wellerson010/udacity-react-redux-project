@@ -49,11 +49,11 @@ const mapStateToProps = ({vote}) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    if (ownProps.type == POST) {
-        return {
-            handleDelete: (data) => dispatch(deletePost(data)),
-            handleVote: (postId, option) => dispatch(vote(postId, option, POST))
-        }
+    const deleteAction = (ownProps.type == POST) ? deletePost: null;
+
+    return {
+        handleDelete: (data) => dispatch(deleteAction(data)),
+        handleVote: (postId, option) => dispatch(vote(postId, option, ownProps.type))
     }
 };
 
