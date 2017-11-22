@@ -21,64 +21,64 @@ const ListPosts = ({
     handleModalAddOpen
 }) => (
         <BlockUi blocking={loading}>
-            <Rodal visible={modalAddOpened} onClose={handleModalAddClose} height={440}>
-                <EditItem
-                    mode={SAVE}
-                    type={POST}
-                    handleCancel={handleModalAddClose}
-                />
-            </Rodal >
+                <Rodal visible={modalAddOpened} onClose={handleModalAddClose} height={440}>
+                    <EditItem
+                        mode={SAVE}
+                        type={POST}
+                        handleCancel={handleModalAddClose}
+                    />
+                </Rodal >
 
-            <div className='container-posts-header'>
-                <h2 className='title'>Posts</h2>
+                <div className='container-posts-header'>
+                    <h2 className='title'>Posts</h2>
 
-                <button type='button' onClick={handleModalAddOpen}>
-                    Adicionar Post
+                    <button type='button' onClick={handleModalAddOpen}>
+                        Adicionar Post
                 </button>
-            </div>
-
-            <div className='container-posts-order'>
-                <span className='title'>Ordenar por</span>
-                <div className='options'>
-                    {
-                        getContainerIconsOrder('star-o',
-                            'voteScore',
-                            getStatusToIconOrder('voteScore', fieldOrder, orderAsc),
-                            'Mais votados',
-                            handleChangeOrder)
-                    }
-                    {
-                        getContainerIconsOrder('calendar',
-                            'timestamp',
-                            getStatusToIconOrder('timestamp', fieldOrder, orderAsc),
-                            'Data de criação',
-                            handleChangeOrder)
-                    }
-                    {
-                        getContainerIconsOrder('comment-o',
-                            'commentCount',
-                            getStatusToIconOrder('commentCount', fieldOrder, orderAsc),
-                            'Total de comentários',
-                            handleChangeOrder)
-                    }
                 </div>
-            </div>
-            <ul className='list'>
-                {
-                    posts.map(post => {
-                        return (
-                            <li key={post.id} className='post'>
-                                <ContentItem
-                                    type={POST}
-                                    data={post}
-                                    mode={EDIT}
-                                    linkToPost={true}
-                                />
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+
+                <div className='container-posts-order'>
+                    <span className='title'>Ordenar por</span>
+                    <div className='options'>
+                        {
+                            getContainerIconsOrder('star-o',
+                                'voteScore',
+                                getStatusToIconOrder('voteScore', fieldOrder, orderAsc),
+                                'Mais votados',
+                                handleChangeOrder)
+                        }
+                        {
+                            getContainerIconsOrder('calendar',
+                                'timestamp',
+                                getStatusToIconOrder('timestamp', fieldOrder, orderAsc),
+                                'Data de criação',
+                                handleChangeOrder)
+                        }
+                        {
+                            getContainerIconsOrder('comment-o',
+                                'commentCount',
+                                getStatusToIconOrder('commentCount', fieldOrder, orderAsc),
+                                'Total de comentários',
+                                handleChangeOrder)
+                        }
+                    </div>
+                </div>
+                <ul className='list'>
+                    {
+                        posts.map(post => {
+                            return (
+                                <li key={post.id} className='post'>
+                                    <ContentItem
+                                        type={POST}
+                                        data={post}
+                                        mode={EDIT}
+                                        linkToPost={true}
+                                    />
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
         </BlockUi>
     );
 

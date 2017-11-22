@@ -1,8 +1,11 @@
+import omit from 'lodash.omit';
+
 import {
     ADD_ALL_COMMENTS,
     API_IDLE,
     CHANGE_STATUS_COMMENT_GET_ALL,
-    CHANGE_VOTE_COMMENT
+    CHANGE_VOTE_COMMENT,
+    DELETE_COMMENT
 } from '../constants';
 
 const defaultState = {
@@ -46,6 +49,17 @@ export default function comment(state = defaultState, action) {
                             ...state.all.data[action.id],
                             voteScore: totalVotes + action.amount
                         }
+                    }
+                }
+            }
+        case DELETE_COMMENT:
+            return {
+                ...state,
+                all: {
+                    ...state.all,
+                    ids: state.all.ids.filter(id => id !== action.id),
+                    data: {
+                        ...omit(state.all.data, [action.id])
                     }
                 }
             }

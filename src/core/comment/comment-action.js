@@ -1,10 +1,11 @@
-import { getAllByPost} from './comment-service';
+import { getAllByPost, remove} from './comment-service';
 import {
     API_SUCCESS,
     API_LOADING,
     ADD_ALL_COMMENTS,
     CHANGE_STATUS_COMMENT_GET_ALL,
-    CHANGE_VOTE_COMMENT
+    CHANGE_VOTE_COMMENT,
+    DELETE_COMMENT
 } from '../constants';
 
 export function addAllComments(comments){
@@ -27,6 +28,16 @@ export function changeStatusCommentGetAll(status){
     return {
         type: CHANGE_STATUS_COMMENT_GET_ALL,
         status
+    }
+}
+
+export function deleteComment(commentId){
+    return async dispatch => {
+        await remove(commentId);
+        dispatch({
+            type: DELETE_COMMENT,
+            id: commentId
+        });
     }
 }
 

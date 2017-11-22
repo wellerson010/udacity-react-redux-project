@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Sweet from 'sweetalert';
 
 import ContentItemComponent from '../../components/content-item';
 import { EDIT, SAVE, COMMENT, POST } from '../../../core/constants';
 import { addPost,  deletePost, editPost } from '../../../core/post/post-actions';
+import { deleteComment } from '../../../core/comment/comment-action';
 import { vote } from '../../../core/vote/vote-actions';
 
 class ContentItem extends React.Component {
@@ -19,12 +21,37 @@ class ContentItem extends React.Component {
         modalEditOpened: false
     })
 
+    confirmDelete = (id) => {
+        Sweet({
+            title: 'Você está certo disso?',
+            text: 'Não será possível desfazer esta ação!',
+            icon: 'warning',
+            buttons: {
+                confirm: {
+                    text: 'Sim, deletar!',
+                    value: true
+                },
+                cancel: {
+                    text: 'Cancelar',
+                    closeModal: true,
+                    value: false,
+                    visible: true
+                }
+            }
+        }).then(result => {
+            if (result){
+                this.props.handleDelete(id);
+            }
+        });
+    }
+
     openModalEdit = () => this.setState({
         modalEditOpened: true
     })
 
     render() {
-        const { type, data, votes, handleVote, handleDelete, handleSave, linkToPost, showBody } = this.props;
+
+        const { type, data, votes, handleVote, handleSave, linkToPost, showBody } = this.props;
         const { modalEditOpened } = this.state;
 
         return (
@@ -33,7 +60,7 @@ class ContentItem extends React.Component {
                 data={data}
                 votes={votes}
                 handleVote={handleVote}
-                handleDelete={handleDelete}
+                handleDelete={this.confirmDelete}
                 modalEditOpened={modalEditOpened}
                 handleEdit={this.openModalEdit}
                 handleModalEditClose={this.closeModalEdit}
@@ -49,7 +76,7 @@ const mapStateToProps = ({vote}) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    const deleteAction = (ownProps.type == POST) ? deletePost: null;
+    const deleteAction = (ownProps.type == POST) ? deletePost: deleteComment;
 
     return {
         handleDelete: (data) => dispatch(deleteAction(data)),

@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import { Link } from 'react-router-dom';
+import BlockUi from 'react-block-ui';
 
 import './content-item.css';
 import Vote from '../vote';
@@ -22,7 +23,7 @@ const ContentItem = ({
     linkToPost,
     showBody
 }) => (
-        <div className='content-item'>
+        <BlockUi blocking={false} className='content-item'>
             <Rodal visible={modalEditOpened} onClose={handleModalEditClose} height={440}>
                 <EditItem
                     mode={EDIT}
@@ -84,7 +85,7 @@ const ContentItem = ({
                 <FontAwesome name='pencil' title='Editar' onClick={() => handleEdit(data.id)} />
                 <FontAwesome name='trash' title='Deletar' onClick={() => handleDelete(data.id)} />
             </div>
-        </div>
+        </BlockUi>
     );
 
 const formatDate = (timestamp) => moment(timestamp).format('DD/MM/YY hh:mm:ss');
