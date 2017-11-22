@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import { API_LOADING } from '../../../core/constants';
 import DetailPostComponent from '../../components/detail-post';
@@ -31,10 +31,15 @@ class DetailPost extends React.Component {
         const blocking = (statusGetAll == API_LOADING);
 
         return (
+            (post) ?
             <DetailPostComponent
                 loading={blocking}
                 comments={comments}
                 post={post}
+            />
+            :
+            <Redirect 
+                to='/'
             />
         )
     }

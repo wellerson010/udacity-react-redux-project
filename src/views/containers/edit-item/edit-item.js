@@ -45,12 +45,14 @@ class EditItem extends React.Component {
             });
         }
        
-    }
+    } 
 
     render (){
         const { handleCancel, data, mode, type, categories } = this.props;
 
         const { title, body, author, category } = this.state;
+
+        console.log('aaa');
 
         return (
             <EditItemComponent 
