@@ -10,3 +10,7 @@
 .container-detail-post .list li:not(:last-child){
     border-bottom: 1px solid #ccc;
 }
+
+.container-detail-post .button-new-comment{
+    margin-bottom: 7px;
+}

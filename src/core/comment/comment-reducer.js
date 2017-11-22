@@ -2,6 +2,7 @@ import omit from 'lodash.omit';
 
 import {
     ADD_ALL_COMMENTS,
+    ADD_COMMENT,
     API_IDLE,
     CHANGE_STATUS_COMMENT_GET_ALL,
     CHANGE_VOTE_COMMENT,
@@ -27,6 +28,18 @@ export default function comment(state = defaultState, action) {
             return {
                 ...state,
                 all: action.comments
+            }
+        case ADD_COMMENT:
+            return {
+                ...state,
+                all: {
+                    ...state.all,
+                    ids: state.all.ids.concat(action.comment.id),
+                    data: {
+                        ...state.all.data,
+                        [action.comment.id]: action.comment
+                    }
+                }
             }
         case CHANGE_STATUS_COMMENT_GET_ALL:
             return {

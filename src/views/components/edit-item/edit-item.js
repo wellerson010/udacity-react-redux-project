@@ -1,10 +1,10 @@
 import React from 'react';
 
 import './edit-item.css';
-import { SAVE } from '../../../core/constants';
+import { SAVE, POST } from '../../../core/constants';
 import { capitalizeWord } from '../../../core/utils';
 
-const EditItem = ({ title, body, author, category, categories, mode, handleChange, handleSave, handleCancel }) => (
+const EditItem = ({ title, body, author, category, categories, mode, type, handleChange, handleSave, handleCancel }) => (
     <div className='container-edit-item'>
         {
             mode == SAVE &&
@@ -16,7 +16,7 @@ const EditItem = ({ title, body, author, category, categories, mode, handleChang
             </div>
         }
         {
-            mode == SAVE &&
+            (mode == SAVE && type == POST) &&
             <label className='field'>
                 <span className='inline'>Categoria</span>
                 <select className='categories' value={category} onChange={handleChange} name='category'>

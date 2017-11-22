@@ -5,22 +5,41 @@ import Sweet from 'sweetalert';
 import EditItemComponent from '../../components/edit-item';
 import { EDIT, POST } from '../../../core/constants';
 import { addPost, editPost } from '../../../core/post/post-actions';
+import { addComment } from '../../../core/comment/comment-action';
 
 class EditItem extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         const { mode, data } = props;
 
         this.state = {
-            title: (mode == EDIT)?data.title:'',
-            body: (mode == EDIT)?data.body:'',
+            title: (mode == EDIT) ? data.title : '',
+            body: (mode == EDIT) ? data.body : '',
             category: 'any',
             author: ''
         }
     }
 
-    alertFillFields(){
+    add(){
+        const { title, body, category, author } = this.state;
+        const { type, handleSave, postParentId } = this.props;
+
+        if (!body.trim() || !author.trim() || (type == POST && (category == 'any' || !title.trim())) ) {
+            this.alertFillFields();
+            return;
+        }
+
+        handleSave({
+            title,
+            body,
+            category,
+            author,
+            parentId: postParentId
+        });
+    }
+
+    alertFillFields() {
         Sweet({
             icon: 'error',
             title: 'Por favor, preenchar todos os campos!',
@@ -38,9 +57,9 @@ class EditItem extends React.Component {
         const { handleSave, data, mode } = this.props;
         const { title, body, category, author } = this.state;
 
-        if (mode == EDIT){
+        if (mode == EDIT) {
 
-            if (!title.trim() || !body.trim()){
+            if (!title.trim() || !body.trim()) {
                 this.alertFillFields();
                 return;
             }
@@ -51,36 +70,27 @@ class EditItem extends React.Component {
                 body
             });
         }
-        else{
-            if (!title.trim() || !body.trim() || !author.trim() || category == 'any'){
-                this.alertFillFields();
-                return;
-            }
-
-            handleSave({
-                title,
-                body,
-                category,
-                author
-            });
+        else {
+            this.add();
         }
-    } 
+    }
 
-   
 
-    render (){
+
+    render() {
         const { handleCancel, data, mode, type, categories } = this.props;
 
         const { title, body, author, category } = this.state;
 
         return (
-            <EditItemComponent 
+            <EditItemComponent
                 handleCancel={handleCancel}
                 handleChange={this.handle}
                 handleSave={this.save}
                 title={title}
                 body={body}
                 mode={mode}
+                type={type}
                 author={author}
                 category={category}
                 categories={categories}
@@ -89,17 +99,22 @@ class EditItem extends React.Component {
     }
 }
 
-const mapStateToProps = ({post, category}) => ({
+const mapStateToProps = ({ post, category }) => ({
     categories: category.all
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    if (ownProps.type == POST){
-        const saveCallback = (ownProps.mode == EDIT) ? editPost: addPost;
+    let saveAction;
 
-        return {
-            handleSave: (data) => dispatch(saveCallback(data))
-        }
+    if (ownProps.type == POST) {
+        saveAction = (ownProps.mode == EDIT) ? editPost : addPost;
+    }
+    else{
+        saveAction = (ownProps.mode == EDIT) ? null: addComment;
+    }
+
+    return {
+        handleSave: (data) => dispatch(saveAction(data))
     }
 };
 

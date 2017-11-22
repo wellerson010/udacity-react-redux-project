@@ -1,5 +1,6 @@
-import { getAllByPost, remove} from './comment-service';
+import { add, getAllByPost, remove } from './comment-service';
 import {
+    ADD_COMMENT,
     API_SUCCESS,
     API_LOADING,
     ADD_ALL_COMMENTS,
@@ -8,14 +9,25 @@ import {
     DELETE_COMMENT
 } from '../constants';
 
-export function addAllComments(comments){
+export function addAllComments(comments) {
     return {
         type: ADD_ALL_COMMENTS,
         comments
     }
 }
 
-export function changeVoteComment(id, vote, amount){
+export function addComment(data) {
+    return dispatch => {
+        add(data).then(comment => {
+            dispatch({
+                type: ADD_COMMENT,
+                comment
+            });
+        })
+    }
+}
+
+export function changeVoteComment(id, vote, amount) {
     return {
         type: CHANGE_VOTE_COMMENT,
         id,
@@ -24,14 +36,14 @@ export function changeVoteComment(id, vote, amount){
     }
 }
 
-export function changeStatusCommentGetAll(status){
+export function changeStatusCommentGetAll(status) {
     return {
         type: CHANGE_STATUS_COMMENT_GET_ALL,
         status
     }
 }
 
-export function deleteComment(commentId){
+export function deleteComment(commentId) {
     return async dispatch => {
         await remove(commentId);
         dispatch({
@@ -41,7 +53,7 @@ export function deleteComment(commentId){
     }
 }
 
-export function getAll (postId){
+export function getAll(postId) {
     return async dispatch => {
         console.log('AAA');
         dispatch(changeStatusCommentGetAll(API_LOADING));

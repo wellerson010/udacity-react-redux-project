@@ -4,6 +4,8 @@ export const ADD_ALL_COMMENTS = 'ADD_ALL_COMMENTS';
 
 export const ADD_ALL_POSTS = 'ADD_ALL_POSTS';
 
+export const ADD_COMMENT = 'ADD_COMMENT';
+
 export const ADD_POST = 'ADD_POST';
 
 export const API_FAIL = 'API_FAIL';

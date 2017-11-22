@@ -13,34 +13,46 @@ class DetailPost extends React.Component {
         const { match: { params: { post_id } }, getAll } = this.props;
 
         this.state = {
-            postId: post_id
+            postId: post_id,
+            modalAddOpened: false
         }
     }
+
+    closeModalAdd = () => this.setState({
+        modalAddOpened: false
+    });
 
     componentDidMount() {
         this.props.getAll(this.state.postId);
     }
 
+    openModalAdd = () => this.setState({
+        modalAddOpened: true
+    });
+
     render() {
         const { statusGetAll, comments, posts } = this.props;
 
-        const { postId } = this.state;
+        const { postId, modalAddOpened } = this.state;
 
         const post = posts[postId];
-        
+
         const blocking = (statusGetAll == API_LOADING);
 
         return (
             (post) ?
-            <DetailPostComponent
-                loading={blocking}
-                comments={comments}
-                post={post}
-            />
-            :
-            <Redirect 
-                to='/'
-            />
+                <DetailPostComponent
+                    loading={blocking}
+                    comments={comments}
+                    post={post}
+                    modalAddOpened={modalAddOpened}
+                    handleModalAddClose={this.closeModalAdd}
+                    handleModalAddOpen={this.openModalAdd}
+                />
+                :
+                <Redirect
+                    to='/'
+                />
         )
     }
 }
