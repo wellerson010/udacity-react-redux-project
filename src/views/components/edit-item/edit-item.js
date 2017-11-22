@@ -20,6 +20,9 @@ const EditItem = ({ title, body, author, category, categories, mode, handleChang
             <label className='field'>
                 <span className='inline'>Categoria</span>
                 <select className='categories' value={category} onChange={handleChange} name='category'>
+                    <option value='any'>
+                        Selecione uma categoria...
+                    </option>
                     {
                         categories.ids.map(id => {
                             const category = categories.data[id];

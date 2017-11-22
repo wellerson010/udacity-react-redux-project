@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Sweet from 'sweetalert';
 
 import EditItemComponent from '../../components/edit-item';
 import { EDIT, POST } from '../../../core/constants';
@@ -14,9 +15,17 @@ class EditItem extends React.Component {
         this.state = {
             title: (mode == EDIT)?data.title:'',
             body: (mode == EDIT)?data.body:'',
-            category: '',
+            category: 'any',
             author: ''
         }
+    }
+
+    alertFillFields(){
+        Sweet({
+            icon: 'error',
+            title: 'Por favor, preenchar todos os campos!',
+            text: 'Precisamos de todos os campos preenchidos :D'
+        })
     }
 
     handle = (evt) => {
@@ -25,11 +34,17 @@ class EditItem extends React.Component {
         });
     }
 
-    handleSave = () => {
+    save = () => {
         const { handleSave, data, mode } = this.props;
         const { title, body, category, author } = this.state;
 
         if (mode == EDIT){
+
+            if (!title.trim() || !body.trim()){
+                this.alertFillFields();
+                return;
+            }
+
             handleSave({
                 id: data.id,
                 title,
@@ -37,6 +52,11 @@ class EditItem extends React.Component {
             });
         }
         else{
+            if (!title.trim() || !body.trim() || !author.trim() || category == 'any'){
+                this.alertFillFields();
+                return;
+            }
+
             handleSave({
                 title,
                 body,
@@ -44,21 +64,20 @@ class EditItem extends React.Component {
                 author
             });
         }
-       
     } 
+
+   
 
     render (){
         const { handleCancel, data, mode, type, categories } = this.props;
 
         const { title, body, author, category } = this.state;
 
-        console.log('aaa');
-
         return (
             <EditItemComponent 
                 handleCancel={handleCancel}
                 handleChange={this.handle}
-                handleSave={this.handleSave}
+                handleSave={this.save}
                 title={title}
                 body={body}
                 mode={mode}
