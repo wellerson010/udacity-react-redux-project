@@ -35,6 +35,9 @@ export function addPost(data) {
                 type: ADD_POST,
                 post: post
             });
+
+            dispatch(refreshOrderPost());
+
             dispatch(changeStatusPostSave(API_SUCCESS));
         }).catch(data => {
             dispatch(changeStatusPostSave(API_FAIL));
@@ -79,11 +82,15 @@ export function changeStatusPostSave(status) {
 }
 
 export function changeVotePost(id, vote, amount){
-    return {
-        type: CHANGE_VOTE_POST,
-        id,
-        vote,
-        amount
+    return dispatch => {
+        dispatch({
+            type: CHANGE_VOTE_POST,
+            id,
+            vote,
+            amount
+        });
+
+        dispatch(refreshOrderPost());
     }
 }
 
@@ -121,5 +128,15 @@ export function getAllPosts() {
         }).catch(data => {
             dispatch(changeStatusPostGetAll(API_FAIL));
         });
+    }
+}
+
+export function refreshOrderPost(){
+    return dispatch => {
+        const { post } = store.getState();
+        
+        const  { fieldOrder, orderAsc } = post.all.order;
+
+        dispatch(changeOrderAllPosts(fieldOrder, orderAsc));
     }
 }

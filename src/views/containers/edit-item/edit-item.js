@@ -81,8 +81,6 @@ class EditItem extends React.Component {
         }
     }
 
-
-
     render() {
         const { handleCancel, data, mode, type, categories } = this.props;
 
