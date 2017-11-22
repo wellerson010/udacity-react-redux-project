@@ -24,7 +24,7 @@ export function vote(id, typeVote, type){
     const userAlreadyVoted = (voteState[id]);
 
     return async dispatch => {
-        const actionCallbackType = (type == POST)?changeVotePost:changeVoteComment;
+        const actionCallbackType = (type === POST)?changeVotePost:changeVoteComment;
 
         if (userAlreadyVoted){
             if (voteState[id] === typeVote){

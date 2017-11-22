@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { changeOrderAllPosts, deletePost, getAllPosts, vote } from '../../../core/post/post-actions';
+import { changeOrderAllPosts, getAllPosts } from '../../../core/post/post-actions';
 import { API_LOADING } from '../../../core/constants';
 import ListPostsComponent from '../../components/list-posts';
 

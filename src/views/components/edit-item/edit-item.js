@@ -7,7 +7,7 @@ import { capitalizeWord } from '../../../core/utils';
 const EditItem = ({ title, body, author, category, categories, mode, type, handleChange, handleSave, handleCancel }) => (
     <div className='container-edit-item'>
         {
-            mode == SAVE &&
+            mode === SAVE &&
             <div>
                 <label className='field'>
                     <span className='inline'>Autor</span>
@@ -16,7 +16,7 @@ const EditItem = ({ title, body, author, category, categories, mode, type, handl
             </div>
         }
         {
-            (mode == SAVE && type == POST) &&
+            (mode === SAVE && type === POST) &&
             <label className='field'>
                 <span className='inline'>Categoria</span>
                 <select className='categories' value={category} onChange={handleChange} name='category'>
@@ -40,7 +40,7 @@ const EditItem = ({ title, body, author, category, categories, mode, type, handl
             </label>
         }
         { 
-        type == POST &&
+        type === POST &&
         <div>
             <label className='field'>
                 <span className='block'>Título</span>
@@ -56,7 +56,7 @@ const EditItem = ({ title, body, author, category, categories, mode, type, handl
         </div>
 
         <button type="button" onClick={handleSave}>
-            {(mode == SAVE) ? 'Publicar' : 'Salvar'}
+            {(mode === SAVE) ? 'Publicar' : 'Salvar'}
         </button>
         <button type="button" onClick={handleCancel}>Cancelar</button>
     </div>

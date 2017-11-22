@@ -10,7 +10,7 @@ class DetailPost extends React.Component {
     constructor(props) {
         super(props);
 
-        const { match: { params: { post_id } }, getAll } = this.props;
+        const { match: { params: { post_id } } } = this.props;
 
         this.state = {
             postId: post_id,
@@ -37,7 +37,7 @@ class DetailPost extends React.Component {
 
         const post = posts[postId];
 
-        const blocking = (statusGetAll == API_LOADING);
+        const blocking = (statusGetAll === API_LOADING);
 
         return (
             (post) ?

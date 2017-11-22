@@ -3,7 +3,7 @@ import omit from 'lodash.omit';
 import { ADD_VOTE, REMOVE_VOTE } from '../constants';
 
 const defaultState = {
-
+    
 }
 
 export default function vote(state = defaultState, action) {

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import Sweet from 'sweetalert';
 
 import ContentItemComponent from '../../components/content-item';
-import { EDIT, SAVE, COMMENT, POST } from '../../../core/constants';
-import { addPost,  deletePost, editPost } from '../../../core/post/post-actions';
+import { POST } from '../../../core/constants';
+import { deletePost } from '../../../core/post/post-actions';
 import { deleteComment } from '../../../core/comment/comment-action';
 import { vote } from '../../../core/vote/vote-actions';
 
@@ -51,7 +51,7 @@ class ContentItem extends React.Component {
 
     render() {
 
-        const { type, data, votes, handleVote, handleSave, linkToPost, showBody } = this.props;
+        const { type, data, votes, handleVote, linkToPost, showBody } = this.props;
         const { modalEditOpened } = this.state;
 
         return (
@@ -76,7 +76,7 @@ const mapStateToProps = ({vote}) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    const deleteAction = (ownProps.type == POST) ? deletePost: deleteComment;
+    const deleteAction = (ownProps.type === POST) ? deletePost: deleteComment;
 
     return {
         handleDelete: (data) => dispatch(deleteAction(data)),

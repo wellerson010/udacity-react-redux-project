@@ -1,5 +1,4 @@
 import request from '../api';
-import { DOWN_VOTE, UP_VOTE } from '../constants';
 import { normalizeData, orderByState, generateUiid } from '../utils';
 
 export async function add({ title, body, author, category }) {
@@ -24,7 +23,7 @@ export async function add({ title, body, author, category }) {
   return data;
 }
 
-export async function deletePost(id){
+export async function remove(id){
   const data = await request({
     url: `/posts/${id}`,
     method: 'delete'

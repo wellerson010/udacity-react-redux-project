@@ -9,8 +9,7 @@ import {
     CHANGE_STATUS_POST_SAVE,
     CHANGE_VOTE_POST,
     DELETE_POST,
-    EDIT_POST,
-    UP_VOTE
+    EDIT_POST
 } from '../constants';
 
 const defaultState = {
@@ -25,12 +24,6 @@ const defaultState = {
     status: {
         getAll: API_IDLE,
         savePost: API_IDLE
-    },
-    loading: {
-        getAll: false
-    },
-    votes: {
-
     }
 }
 

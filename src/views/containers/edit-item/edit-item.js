@@ -14,8 +14,8 @@ class EditItem extends React.Component {
         const { mode, data } = props;
 
         this.state = {
-            title: (mode == EDIT) ? data.title : '',
-            body: (mode == EDIT) ? data.body : '',
+            title: (mode === EDIT) ? data.title : '',
+            body: (mode === EDIT) ? data.body : '',
             category: 'any',
             author: ''
         }
@@ -25,7 +25,7 @@ class EditItem extends React.Component {
         const { title, body, category, author } = this.state;
         const { type, handleSave, postParentId } = this.props;
 
-        if (!body.trim() || !author.trim() || (type == POST && (category == 'any' || !title.trim()))) {
+        if (!body.trim() || !author.trim() || (type === POST && (category === 'any' || !title.trim()))) {
             this.alertFillFields();
             return;
         }
@@ -52,7 +52,7 @@ class EditItem extends React.Component {
         const { title, body } = this.state;
 
 
-        if (!body.trim() || (mode == POST && !title.trim())) {
+        if (!body.trim() || (mode === POST && !title.trim())) {
             this.alertFillFields();
             return;
         }
@@ -73,7 +73,7 @@ class EditItem extends React.Component {
     save = () => {
         const {  mode } = this.props;
 
-        if (mode == EDIT) {
+        if (mode === EDIT) {
             this.edit();
         }
         else {
@@ -82,7 +82,7 @@ class EditItem extends React.Component {
     }
 
     render() {
-        const { handleCancel, data, mode, type, categories } = this.props;
+        const { handleCancel, mode, type, categories } = this.props;
 
         const { title, body, author, category } = this.state;
 
@@ -110,11 +110,11 @@ const mapStateToProps = ({ post, category }) => ({
 const mapDispatchToProps = (dispatch, ownProps) => {
     let saveAction;
 
-    if (ownProps.type == POST) {
-        saveAction = (ownProps.mode == EDIT) ? editPost : addPost;
+    if (ownProps.type === POST) {
+        saveAction = (ownProps.mode === EDIT) ? editPost : addPost;
     }
     else {
-        saveAction = (ownProps.mode == EDIT) ? editComment : addComment;
+        saveAction = (ownProps.mode === EDIT) ? editComment : addComment;
     }
 
     return {

@@ -1,22 +1,17 @@
 import {
     ADD_ALL_POSTS,
     API_FAIL,
-    API_IDLE,
     API_LOADING,
     API_SUCCESS,
     ADD_POST,
-    ADD_VOTE_POST,
     CHANGE_ORDER_ALL_POSTS,
     CHANGE_STATUS_POST_GET_ALL,
     CHANGE_STATUS_POST_SAVE,
     CHANGE_VOTE_POST,
     DELETE_POST,
-    DOWN_VOTE,
-    EDIT_POST,
-    REMOVE_VOTE_POST,
-    UP_VOTE
+    EDIT_POST
 } from '../constants';
-import { add, deletePost as del, getAll, edit, orderAllPosts, votePost } from './post-service';
+import { add, remove, getAll, edit, orderAllPosts } from './post-service';
 import store from '../store';
 
 export function addAllPosts(posts) {
@@ -96,7 +91,7 @@ export function changeVotePost(id, vote, amount){
 
 export function deletePost(postId){
     return async dispatch => {
-        await del(postId);
+        await remove(postId);
         dispatch({
             type: DELETE_POST,
             id: postId
