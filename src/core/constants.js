@@ -42,6 +42,8 @@ export const DOWN_VOTE = 'downVote';
 
 export const EDIT = 'EDIT';
 
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+
 export const EDIT_POST = 'EDIT_POST';
 
 export const POST = 'POST';

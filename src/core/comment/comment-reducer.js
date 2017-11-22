@@ -6,7 +6,8 @@ import {
     API_IDLE,
     CHANGE_STATUS_COMMENT_GET_ALL,
     CHANGE_VOTE_COMMENT,
-    DELETE_COMMENT
+    DELETE_COMMENT,
+    EDIT_COMMENT
 } from '../constants';
 
 const defaultState = {
@@ -73,6 +74,20 @@ export default function comment(state = defaultState, action) {
                     ids: state.all.ids.filter(id => id !== action.id),
                     data: {
                         ...omit(state.all.data, [action.id])
+                    }
+                }
+            }
+        case EDIT_COMMENT:
+            return {
+                ...state,
+                all: {
+                    ...state.all,
+                    data: {
+                        ...state.all.data,
+                        [action.id]: {
+                            ...state.all.data[action.id],
+                            body: action.body
+                        }
                     }
                 }
             }

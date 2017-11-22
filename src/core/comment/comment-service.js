@@ -22,6 +22,19 @@ export async function add({ body, author, parentId }) {
   return data;
 }
 
+export async function edit(id, body){
+    const data = await request({
+      url: `/comments/${id}`,
+      method: 'put',
+      data: {
+        body
+      }
+    });
+  
+    return data;
+  }
+  
+
 export async function getAllByPost(postId) {
     const data = await request({
         url: `/posts/${postId}/comments`

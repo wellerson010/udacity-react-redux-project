@@ -1,4 +1,4 @@
-import { add, getAllByPost, remove } from './comment-service';
+import { add, edit, getAllByPost, remove } from './comment-service';
 import {
     ADD_COMMENT,
     API_SUCCESS,
@@ -6,7 +6,8 @@ import {
     ADD_ALL_COMMENTS,
     CHANGE_STATUS_COMMENT_GET_ALL,
     CHANGE_VOTE_COMMENT,
-    DELETE_COMMENT
+    DELETE_COMMENT,
+    EDIT_COMMENT
 } from '../constants';
 
 export function addAllComments(comments) {
@@ -53,9 +54,20 @@ export function deleteComment(commentId) {
     }
 }
 
+export function editComment(data){
+    return async dispatch => {
+        await edit(data.id, data.body);
+
+        dispatch({
+            type: EDIT_COMMENT,
+            id: data.id,
+            body: data.body
+        });
+    }
+}
+
 export function getAll(postId) {
     return async dispatch => {
-        console.log('AAA');
         dispatch(changeStatusCommentGetAll(API_LOADING));
         const comments = await getAllByPost(postId);
         dispatch(addAllComments(comments));

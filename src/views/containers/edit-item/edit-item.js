@@ -5,7 +5,7 @@ import Sweet from 'sweetalert';
 import EditItemComponent from '../../components/edit-item';
 import { EDIT, POST } from '../../../core/constants';
 import { addPost, editPost } from '../../../core/post/post-actions';
-import { addComment } from '../../../core/comment/comment-action';
+import { addComment, editComment } from '../../../core/comment/comment-action';
 
 class EditItem extends React.Component {
     constructor(props) {
@@ -21,11 +21,11 @@ class EditItem extends React.Component {
         }
     }
 
-    add(){
+    add() {
         const { title, body, category, author } = this.state;
         const { type, handleSave, postParentId } = this.props;
 
-        if (!body.trim() || !author.trim() || (type == POST && (category == 'any' || !title.trim())) ) {
+        if (!body.trim() || !author.trim() || (type == POST && (category == 'any' || !title.trim()))) {
             this.alertFillFields();
             return;
         }
@@ -47,6 +47,23 @@ class EditItem extends React.Component {
         })
     }
 
+    edit = () => {
+        const { handleSave, data, mode } = this.props;
+        const { title, body } = this.state;
+
+
+        if (!body.trim() || (mode == POST && !title.trim())) {
+            this.alertFillFields();
+            return;
+        }
+
+        handleSave({
+            id: data.id,
+            title,
+            body
+        });
+    }
+
     handle = (evt) => {
         this.setState({
             [evt.target.name]: evt.target.value
@@ -54,21 +71,10 @@ class EditItem extends React.Component {
     }
 
     save = () => {
-        const { handleSave, data, mode } = this.props;
-        const { title, body, category, author } = this.state;
+        const {  mode } = this.props;
 
         if (mode == EDIT) {
-
-            if (!title.trim() || !body.trim()) {
-                this.alertFillFields();
-                return;
-            }
-
-            handleSave({
-                id: data.id,
-                title,
-                body
-            });
+            this.edit();
         }
         else {
             this.add();
@@ -109,8 +115,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     if (ownProps.type == POST) {
         saveAction = (ownProps.mode == EDIT) ? editPost : addPost;
     }
-    else{
-        saveAction = (ownProps.mode == EDIT) ? null: addComment;
+    else {
+        saveAction = (ownProps.mode == EDIT) ? editComment : addComment;
     }
 
     return {

@@ -39,12 +39,15 @@ const EditItem = ({ title, body, author, category, categories, mode, type, handl
                 </select>
             </label>
         }
+        { 
+        type == POST &&
         <div>
             <label className='field'>
                 <span className='block'>Título</span>
                 <input className='input-title' onChange={handleChange} value={title} name='title' />
             </label>
         </div>
+        }
         <div>
             <label className='field'>
                 <span className='block'>Mensagem</span>
