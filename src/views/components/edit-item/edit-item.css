@@ -12,6 +12,10 @@
     display: block;
 }
 
+.container-edit-item .categories{
+    padding: 7px;
+}
+
 .container-edit-item textarea{
     display: block;
     width: 100%;

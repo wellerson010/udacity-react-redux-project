@@ -11,7 +11,7 @@ const DetailPost = ({ loading, comments, post, modalAddOpened, handleModalAddClo
     <BlockUi blocking={loading} className='container-detail-post'>
         <button type='button' className='button-new-comment' onClick={handleModalAddOpen}>Novo comentário</button>
 
-        <Rodal visible={modalAddOpened} onClose={handleModalAddClose} height={440}>
+        <Rodal visible={modalAddOpened} onClose={handleModalAddClose} height={320}>
             <EditItem
                 mode={SAVE}
                 type={COMMENT}

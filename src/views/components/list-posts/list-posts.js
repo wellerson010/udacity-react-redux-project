@@ -20,7 +20,7 @@ const ListPosts = ({
     handleModalAddOpen
 }) => (
         <BlockUi blocking={loading}>
-                <Rodal visible={modalAddOpened} onClose={handleModalAddClose} height={440}>
+                <Rodal visible={modalAddOpened} onClose={handleModalAddClose} height={405}>
                     <EditItem
                         mode={SAVE}
                         type={POST}

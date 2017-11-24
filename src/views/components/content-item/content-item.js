@@ -21,10 +21,11 @@ const ContentItem = ({
     handleModalEditClose,
     modalEditOpened,
     linkToPost,
-    showBody
+    showBody,
+    heightModalEdit
 }) => (
         <BlockUi blocking={false} className='content-item'>
-            <Rodal visible={modalEditOpened} onClose={handleModalEditClose} height={440}>
+            <Rodal visible={modalEditOpened} onClose={handleModalEditClose} height={heightModalEdit}>
                 <EditItem
                     mode={EDIT}
                     data={data}
