@@ -18,7 +18,7 @@ class ContentItem extends React.Component {
     }
 
     calculateHeightModalEdit = () => {
-        return (this.props.type == POST)? 335: 285;
+        return (this.props.type === POST)? 335: 285;
     }
 
     closeModalEdit = () => this.setState({
